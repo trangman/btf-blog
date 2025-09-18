@@ -1,0 +1,22 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - npm ci
+    build:
+      commands:
+        - npm run build
+  artifacts:
+    baseDirectory: .next
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*
+  environment:
+    NPM_CONFIG_PRODUCTION: false
+    NEXT_TELEMETRY_DISABLED: 1
+    NEXT_PUBLIC_SITE_URL: "https://main.d1h1e8jqitryc1.amplifyapp.com"
+runtime-versions:
+  nodejs: 20
