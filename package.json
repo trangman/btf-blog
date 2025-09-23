@@ -6,13 +6,27 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "tina-dev": "tinacms dev -c \"next dev\"",
+    "tina-build": "tinacms build && next build",
+    "tina-audit": "tinacms audit"
   },
   "dependencies": {
+    "@mdx-js/loader": "^3.1.1",
+    "@mdx-js/react": "^3.1.1",
+    "@supabase/ssr": "^0.7.0",
+    "@supabase/supabase-js": "^2.57.4",
+    "@tinacms/auth": "^1.1.0",
+    "@tinacms/cli": "^1.10.3",
+    "@types/bcryptjs": "^2.4.6",
+    "bcryptjs": "^3.0.2",
     "critters": "^0.0.23",
+    "gray-matter": "^4.0.3",
     "next": "14.1.0",
+    "next-auth": "^4.24.11",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "tinacms": "^2.8.3",
     "web-vitals": "^5.1.0"
   },
   "devDependencies": {

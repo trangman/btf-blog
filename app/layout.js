@@ -1,6 +1,7 @@
 import './globals.css'
 import Script from 'next/script'
 import PerformanceMonitor from './components/PerformanceMonitor'
+import AuthSessionProvider from './components/SessionProvider'
 
 // Compute base URL from env for production canonicals
 const envBase = (process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_VERCEL_URL || '').trim()
@@ -123,8 +124,10 @@ export default function RootLayout({ children }) {
             }),
           }}
         />
-        {children}
-        <PerformanceMonitor />
+        <AuthSessionProvider>
+          {children}
+          <PerformanceMonitor />
+        </AuthSessionProvider>
       </body>
     </html>
   )

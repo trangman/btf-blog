@@ -1,11 +1,22 @@
 import { NextResponse } from 'next/server'
+import { getToken } from 'next-auth/jwt'
 
-export function middleware(request) {
+export async function middleware(request) {
   const response = NextResponse.next()
 
   // Debug logging (only in development)
   if (process.env.NODE_ENV === 'development') {
     console.log(`Middleware running for: ${request.nextUrl.pathname}`)
+  }
+
+  // Authentication check for admin routes
+  if (request.nextUrl.pathname.startsWith('/admin')) {
+    const token = await getToken({ req: request })
+    
+    if (!token) {
+      console.log('No NextAuth token found, redirecting to login')
+      return NextResponse.redirect(new URL('/login', request.url))
+    }
   }
 
   // Security Headers - Always set these
