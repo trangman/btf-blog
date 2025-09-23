@@ -46,6 +46,9 @@ export default function Navigation() {
               <a href="/about" className="text-btf-dark hover:text-btf-accent px-3 py-2 rounded-md text-sm font-medium transition-colors">
                 About
               </a>
+              <a href="/articles" className="text-btf-dark hover:text-btf-accent px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                Articles
+              </a>
               {/* Who is BtF for Dropdown */}
               <div className="relative" ref={whoDropdownRef}>
                 <button
@@ -137,6 +140,9 @@ export default function Navigation() {
         <div className="px-2 pt-2 pb-3 space-y-1 bg-gray-50 border-t border-gray-200">
           <a href="/about" className="text-btf-dark hover:text-btf-accent block px-3 py-2 rounded-md text-base font-medium">
             About
+          </a>
+          <a href="/articles" className="text-btf-dark hover:text-btf-accent block px-3 py-2 rounded-md text-base font-medium">
+            Articles
           </a>
           <span className="text-btf-dark block px-3 pt-2 text-base font-medium">
             Who is BtF For?

@@ -53,6 +53,15 @@ var config_default = defineConfig({
             label: "Hero Image"
           },
           {
+            type: "string",
+            name: "categories",
+            label: "Categories",
+            description: "Comma-separated list of categories (general, buyer, accountant, developer, lawyer, property-owner)",
+            ui: {
+              component: "textarea"
+            }
+          },
+          {
             type: "rich-text",
             name: "body",
             label: "Body",

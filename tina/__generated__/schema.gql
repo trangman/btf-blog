@@ -95,6 +95,7 @@ type Post implements Node & Document {
   description: String!
   pubDate: String!
   heroImage: String
+  categories: String
   body: JSON
   id: ID!
   _sys: SystemInfo!
@@ -127,6 +128,7 @@ input PostFilter {
   description: StringFilter
   pubDate: DatetimeFilter
   heroImage: StringFilter
+  categories: StringFilter
   body: RichTextFilter
 }
 
@@ -195,6 +197,7 @@ input PostMutation {
   description: String
   pubDate: String
   heroImage: String
+  categories: String
   body: JSON
 }
 
