@@ -25,6 +25,12 @@ export default defineConfig({
         label: 'Posts',
         path: 'content/posts',
         format: 'mdx',
+        ui: {
+          allowedActions: {
+            create: true,
+            delete: true,
+          },
+        },
         fields: [
           {
             type: 'string',
