@@ -5,6 +5,7 @@ fragment PostParts on Post {
   pubDate
   heroImage
   categories
+  audience
   body
 }
 

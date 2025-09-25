@@ -26,17 +26,17 @@ const mdxComponents = {
     </p>
   ),
   ul: ({ children, ...props }) => (
-    <ul className="list-disc list-inside mb-4 space-y-2 text-gray-700" {...props}>
+    <ul className="list-disc list-inside mb-4 space-y-1 text-gray-700" {...props}>
       {children}
     </ul>
   ),
   ol: ({ children, ...props }) => (
-    <ol className="list-decimal list-inside mb-4 space-y-2 text-gray-700" {...props}>
+    <ol className="list-decimal list-inside mb-4 space-y-1 text-gray-700" {...props}>
       {children}
     </ol>
   ),
   li: ({ children, ...props }) => (
-    <li className="text-gray-700" {...props}>
+    <li className="text-gray-700 mb-1" {...props}>
       {children}
     </li>
   ),
@@ -47,10 +47,25 @@ const mdxComponents = {
   ),
   table: ({ children, ...props }) => (
     <div className="overflow-x-auto mb-6">
-      <table className="min-w-full border-collapse border border-gray-300" {...props}>
+      <table className="min-w-full border-collapse border border-gray-300 text-sm" {...props}>
         {children}
       </table>
     </div>
+  ),
+  thead: ({ children, ...props }) => (
+    <thead className="bg-gray-50" {...props}>
+      {children}
+    </thead>
+  ),
+  tbody: ({ children, ...props }) => (
+    <tbody {...props}>
+      {children}
+    </tbody>
+  ),
+  tr: ({ children, ...props }) => (
+    <tr className="border-b border-gray-200" {...props}>
+      {children}
+    </tr>
   ),
   th: ({ children, ...props }) => (
     <th className="border border-gray-300 bg-gray-100 px-4 py-2 text-left font-semibold text-btf-dark" {...props}>

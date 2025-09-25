@@ -1,6 +1,11 @@
 // tina/config.ts
 import { defineConfig } from "tinacms";
-var branch = process.env.HEAD || process.env.VERCEL_GIT_COMMIT_REF || "main";
+var branch = process.env.HEAD || process.env.VERCEL_GIT_COMMIT_REF || "master";
+console.log("TinaCMS Config:", {
+  branch,
+  clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID ? "Set" : "Not set",
+  token: process.env.TINA_TOKEN ? "Set" : "Not set"
+});
 var config_default = defineConfig({
   branch,
   clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID,
@@ -17,9 +22,6 @@ var config_default = defineConfig({
       publicFolder: "public"
     }
   },
-  server: {
-    port: 4001
-  },
   schema: {
     collections: [
       {
@@ -27,6 +29,12 @@ var config_default = defineConfig({
         label: "Posts",
         path: "content/posts",
         format: "mdx",
+        ui: {
+          allowedActions: {
+            create: true,
+            delete: true
+          }
+        },
         fields: [
           {
             type: "string",
@@ -59,6 +67,23 @@ var config_default = defineConfig({
             description: "Comma-separated list of categories (general, buyer, accountant, developer, lawyer, property-owner)",
             ui: {
               component: "textarea"
+            }
+          },
+          {
+            type: "string",
+            name: "audience",
+            label: "Target Audience",
+            description: "Primary audience for this article",
+            options: [
+              "BUYER",
+              "ACCOUNTANT",
+              "DEVELOPER",
+              "LAWYER",
+              "EXISTING_PROPERTY_OWNER",
+              "GENERAL"
+            ],
+            ui: {
+              component: "select"
             }
           },
           {
