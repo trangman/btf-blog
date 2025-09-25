@@ -16,17 +16,17 @@ const mdxOptions = {
 // MDX Components for proper rendering
 const mdxComponents = {
   h1: ({ children, ...props }) => (
-    <h1 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-btf-dark mb-6 mt-8 first:mt-0" {...props}>
+    <h1 className="text-2xl lg:text-3xl xl:text-4xl font-bold text-btf-dark mb-6 mt-8 first:mt-0" {...props}>
       {children}
     </h1>
   ),
   h2: ({ children, ...props }) => (
-    <h2 className="text-2xl lg:text-3xl xl:text-4xl font-semibold text-btf-dark mb-4 mt-6" {...props}>
+    <h2 className="text-xl lg:text-2xl xl:text-3xl font-semibold text-btf-dark mb-4 mt-6" {...props}>
       {children}
     </h2>
   ),
   h3: ({ children, ...props }) => (
-    <h3 className="text-xl lg:text-2xl xl:text-3xl font-semibold text-btf-dark mb-3 mt-5" {...props}>
+    <h3 className="text-lg lg:text-xl xl:text-2xl font-semibold text-btf-dark mb-3 mt-5" {...props}>
       {children}
     </h3>
   ),
@@ -175,7 +175,7 @@ export default async function ArticlePage({ params }) {
                   day: 'numeric'
                 })}
               </div>
-              <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-btf-dark mb-6">
+              <h1 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-btf-dark mb-6">
                 {post.title}
               </h1>
               <p className="text-xl lg:text-2xl text-gray-600 max-w-4xl mx-auto">
