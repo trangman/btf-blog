@@ -20,7 +20,7 @@ export default function FAQAccordion({ faqs }) {
     return text.split(/(\*\*.*?\*\*)/g).map((part, index) => {
       if (part.startsWith('**') && part.endsWith('**')) {
         const boldText = part.slice(2, -2)
-        return <strong key={index} className="font-semibold text-btf-dark">{boldText}</strong>
+        return <strong key={index} className="font-semibold text-btf-dark text-base lg:text-lg xl:text-xl">{boldText}</strong>
       }
       return part
     })
@@ -56,7 +56,7 @@ export default function FAQAccordion({ faqs }) {
               className="w-full px-6 py-4 text-left bg-gray-50 hover:bg-gray-100 transition-colors duration-200 flex justify-between items-center focus:outline-none focus:ring-2 focus:ring-btf-accent focus:ring-inset"
               aria-expanded={openItems.has(index)}
             >
-              <span className="font-semibold text-btf-dark pr-4">
+              <span className="font-semibold text-btf-dark pr-4 text-base lg:text-lg xl:text-xl">
                 {faq.question}
               </span>
               <svg
@@ -81,7 +81,7 @@ export default function FAQAccordion({ faqs }) {
               }`}
             >
               <div className="px-6 py-4 bg-white border-t border-gray-200">
-                <div className="text-gray-700 leading-relaxed">
+                <div className="text-gray-700 leading-relaxed text-base lg:text-lg xl:text-xl">
                   {renderMarkdown(faq.answer)}
                 </div>
               </div>
