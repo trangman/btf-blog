@@ -6,13 +6,23 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
 export async function generateStaticParams() {
-  const postsDirectory = path.join(process.cwd(), 'content/posts')
-  
   try {
+    const postsDirectory = path.join(process.cwd(), 'content/posts')
+    
+    // Check if directory exists
+    try {
+      await fs.access(postsDirectory)
+    } catch (error) {
+      console.warn('Content directory not found for static params:', postsDirectory)
+      return []
+    }
+    
     const filenames = await fs.readdir(postsDirectory)
-    return filenames.map((filename) => ({
-      slug: filename.replace(/\.mdx$/, ''),
-    }))
+    return filenames
+      .filter(filename => filename.endsWith('.mdx'))
+      .map((filename) => ({
+        slug: filename.replace(/\.mdx$/, ''),
+      }))
   } catch (error) {
     console.error('Error generating static params:', error)
     return []
@@ -24,6 +34,17 @@ export async function generateMetadata({ params }) {
   const postsDirectory = path.join(process.cwd(), 'content/posts')
   
   try {
+    // Check if directory exists
+    try {
+      await fs.access(postsDirectory)
+    } catch (error) {
+      console.warn('Content directory not found for metadata:', postsDirectory)
+      return {
+        title: 'Article Not Found',
+        description: 'The requested article could not be found.',
+      }
+    }
+    
     const filePath = path.join(postsDirectory, `${slug}.mdx`)
     const fileContents = await fs.readFile(filePath, 'utf8')
     const { data } = matter(fileContents)
@@ -38,6 +59,7 @@ export async function generateMetadata({ params }) {
       },
     }
   } catch (error) {
+    console.error('Error generating metadata:', error)
     return {
       title: 'Article Not Found',
       description: 'The requested article could not be found.',
@@ -50,6 +72,14 @@ export default async function ArticlePage({ params }) {
   const postsDirectory = path.join(process.cwd(), 'content/posts')
   
   try {
+    // Check if directory exists
+    try {
+      await fs.access(postsDirectory)
+    } catch (error) {
+      console.warn('Content directory not found:', postsDirectory)
+      notFound()
+    }
+    
     const filePath = path.join(postsDirectory, `${slug}.mdx`)
     const fileContents = await fs.readFile(filePath, 'utf8')
     const { data, content } = matter(fileContents)
