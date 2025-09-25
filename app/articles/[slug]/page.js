@@ -35,17 +35,17 @@ const mdxComponents = {
     </p>
   ),
   ul: ({ children, ...props }) => (
-    <ul className="list-disc list-inside mb-4 space-y-1 text-gray-700" style={{listStyleType: 'disc', paddingLeft: '1.5rem', marginBottom: '1rem', color: '#374151'}} {...props}>
+    <ul className="mb-4 text-gray-700" style={{listStyleType: 'disc', paddingLeft: '1.5rem', marginBottom: '1rem', color: '#374151'}} {...props}>
       {children}
     </ul>
   ),
   ol: ({ children, ...props }) => (
-    <ol className="list-decimal list-inside mb-4 space-y-1 text-gray-700" style={{listStyleType: 'decimal', paddingLeft: '1.5rem', marginBottom: '1rem', color: '#374151'}} {...props}>
+    <ol className="mb-4 text-gray-700" style={{listStyleType: 'decimal', paddingLeft: '1.5rem', marginBottom: '1rem', color: '#374151'}} {...props}>
       {children}
     </ol>
   ),
   li: ({ children, ...props }) => (
-    <li className="text-gray-700 mb-1" style={{marginBottom: '0.25rem', color: '#374151'}} {...props}>
+    <li className="text-gray-700" style={{marginBottom: '0.25rem', color: '#374151', display: 'list-item'}} {...props}>
       {children}
     </li>
   ),
