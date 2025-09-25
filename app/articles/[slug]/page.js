@@ -2,11 +2,12 @@ import { getPostBySlug, getAllPosts } from '../../lib/content'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import remarkGfm from 'remark-gfm'
 
 // MDX Options for proper rendering
 const mdxOptions = {
   mdxOptions: {
-    remarkPlugins: [],
+    remarkPlugins: [remarkGfm],
     rehypePlugins: [],
   },
 }
@@ -14,32 +15,32 @@ const mdxOptions = {
 // MDX Components for proper rendering
 const mdxComponents = {
   h1: ({ children, ...props }) => (
-    <h1 className="text-3xl font-bold text-btf-dark mb-6 mt-8 first:mt-0" {...props}>
+    <h1 className="text-3xl font-bold text-btf-dark mb-6 mt-8 first:mt-0" style={{fontSize: '1.875rem', fontWeight: 'bold', color: '#1f2937', marginBottom: '1.5rem', marginTop: '2rem'}} {...props}>
       {children}
     </h1>
   ),
   h2: ({ children, ...props }) => (
-    <h2 className="text-2xl font-semibold text-btf-dark mb-4 mt-6" {...props}>
+    <h2 className="text-2xl font-semibold text-btf-dark mb-4 mt-6" style={{fontSize: '1.5rem', fontWeight: '600', color: '#1f2937', marginBottom: '1rem', marginTop: '1.5rem'}} {...props}>
       {children}
     </h2>
   ),
   h3: ({ children, ...props }) => (
-    <h3 className="text-xl font-semibold text-btf-dark mb-3 mt-5" {...props}>
+    <h3 className="text-xl font-semibold text-btf-dark mb-3 mt-5" style={{fontSize: '1.25rem', fontWeight: '600', color: '#1f2937', marginBottom: '0.75rem', marginTop: '1.25rem'}} {...props}>
       {children}
     </h3>
   ),
   p: ({ children, ...props }) => (
-    <p className="text-gray-700 mb-4 leading-relaxed" {...props}>
+    <p className="text-gray-700 mb-4 leading-relaxed" style={{color: '#374151', marginBottom: '1rem', lineHeight: '1.625'}} {...props}>
       {children}
     </p>
   ),
   ul: ({ children, ...props }) => (
-    <ul className="list-disc list-inside mb-4 space-y-1 text-gray-700" style={{listStyleType: 'disc', paddingLeft: '1.5rem', marginBottom: '1rem'}} {...props}>
+    <ul className="list-disc list-inside mb-4 space-y-1 text-gray-700" style={{listStyleType: 'disc', paddingLeft: '1.5rem', marginBottom: '1rem', color: '#374151'}} {...props}>
       {children}
     </ul>
   ),
   ol: ({ children, ...props }) => (
-    <ol className="list-decimal list-inside mb-4 space-y-1 text-gray-700" style={{listStyleType: 'decimal', paddingLeft: '1.5rem', marginBottom: '1rem'}} {...props}>
+    <ol className="list-decimal list-inside mb-4 space-y-1 text-gray-700" style={{listStyleType: 'decimal', paddingLeft: '1.5rem', marginBottom: '1rem', color: '#374151'}} {...props}>
       {children}
     </ol>
   ),
@@ -49,19 +50,19 @@ const mdxComponents = {
     </li>
   ),
   blockquote: ({ children, ...props }) => (
-    <blockquote className="border-l-4 border-btf-accent pl-4 py-2 mb-4 bg-gray-50 italic text-gray-600" {...props}>
+    <blockquote className="border-l-4 border-btf-accent pl-4 py-2 mb-4 bg-gray-50 italic text-gray-600" style={{borderLeft: '4px solid #3b82f6', paddingLeft: '1rem', paddingTop: '0.5rem', paddingBottom: '0.5rem', marginBottom: '1rem', backgroundColor: '#f9fafb', fontStyle: 'italic', color: '#4b5563'}} {...props}>
       {children}
     </blockquote>
   ),
   table: ({ children, ...props }) => (
-    <div className="overflow-x-auto mb-6">
-      <table className="min-w-full border-collapse border border-gray-300 text-sm" style={{borderCollapse: 'collapse', border: '1px solid #d1d5db'}} {...props}>
+    <div className="overflow-x-auto mb-6" style={{overflowX: 'auto', marginBottom: '1.5rem'}}>
+      <table className="min-w-full border-collapse border border-gray-300 text-sm" style={{borderCollapse: 'collapse', border: '1px solid #d1d5db', minWidth: '100%', fontSize: '0.875rem'}} {...props}>
         {children}
       </table>
     </div>
   ),
   thead: ({ children, ...props }) => (
-    <thead className="bg-gray-50" {...props}>
+    <thead className="bg-gray-50" style={{backgroundColor: '#f9fafb'}} {...props}>
       {children}
     </thead>
   ),
@@ -71,27 +72,27 @@ const mdxComponents = {
     </tbody>
   ),
   tr: ({ children, ...props }) => (
-    <tr className="border-b border-gray-200" {...props}>
+    <tr className="border-b border-gray-200" style={{borderBottom: '1px solid #e5e7eb'}} {...props}>
       {children}
     </tr>
   ),
   th: ({ children, ...props }) => (
-    <th className="border border-gray-300 bg-gray-100 px-4 py-2 text-left font-semibold text-btf-dark" style={{border: '1px solid #d1d5db', padding: '8px 16px', backgroundColor: '#f9fafb', fontWeight: '600'}} {...props}>
+    <th className="border border-gray-300 bg-gray-100 px-4 py-2 text-left font-semibold text-btf-dark" style={{border: '1px solid #d1d5db', padding: '8px 16px', backgroundColor: '#f3f4f6', fontWeight: '600', textAlign: 'left', color: '#1f2937'}} {...props}>
       {children}
     </th>
   ),
   td: ({ children, ...props }) => (
-    <td className="border border-gray-300 px-4 py-2 text-gray-700" style={{border: '1px solid #d1d5db', padding: '8px 16px'}} {...props}>
+    <td className="border border-gray-300 px-4 py-2 text-gray-700" style={{border: '1px solid #d1d5db', padding: '8px 16px', color: '#374151'}} {...props}>
       {children}
     </td>
   ),
   strong: ({ children, ...props }) => (
-    <strong className="font-semibold text-btf-dark" {...props}>
+    <strong className="font-semibold text-btf-dark" style={{fontWeight: '600', color: '#1f2937'}} {...props}>
       {children}
     </strong>
   ),
   em: ({ children, ...props }) => (
-    <em className="italic text-gray-600" {...props}>
+    <em className="italic text-gray-600" style={{fontStyle: 'italic', color: '#4b5563'}} {...props}>
       {children}
     </em>
   ),
