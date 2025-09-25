@@ -3,6 +3,14 @@ import { MDXRemote } from 'next-mdx-remote/rsc'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
+// MDX Options for proper rendering
+const mdxOptions = {
+  mdxOptions: {
+    remarkPlugins: [],
+    rehypePlugins: [],
+  },
+}
+
 // MDX Components for proper rendering
 const mdxComponents = {
   h1: ({ children, ...props }) => (
@@ -26,17 +34,17 @@ const mdxComponents = {
     </p>
   ),
   ul: ({ children, ...props }) => (
-    <ul className="list-disc list-inside mb-4 space-y-1 text-gray-700" {...props}>
+    <ul className="list-disc list-inside mb-4 space-y-1 text-gray-700" style={{listStyleType: 'disc', paddingLeft: '1.5rem', marginBottom: '1rem'}} {...props}>
       {children}
     </ul>
   ),
   ol: ({ children, ...props }) => (
-    <ol className="list-decimal list-inside mb-4 space-y-1 text-gray-700" {...props}>
+    <ol className="list-decimal list-inside mb-4 space-y-1 text-gray-700" style={{listStyleType: 'decimal', paddingLeft: '1.5rem', marginBottom: '1rem'}} {...props}>
       {children}
     </ol>
   ),
   li: ({ children, ...props }) => (
-    <li className="text-gray-700 mb-1" {...props}>
+    <li className="text-gray-700 mb-1" style={{marginBottom: '0.25rem', color: '#374151'}} {...props}>
       {children}
     </li>
   ),
@@ -47,7 +55,7 @@ const mdxComponents = {
   ),
   table: ({ children, ...props }) => (
     <div className="overflow-x-auto mb-6">
-      <table className="min-w-full border-collapse border border-gray-300 text-sm" {...props}>
+      <table className="min-w-full border-collapse border border-gray-300 text-sm" style={{borderCollapse: 'collapse', border: '1px solid #d1d5db'}} {...props}>
         {children}
       </table>
     </div>
@@ -68,12 +76,12 @@ const mdxComponents = {
     </tr>
   ),
   th: ({ children, ...props }) => (
-    <th className="border border-gray-300 bg-gray-100 px-4 py-2 text-left font-semibold text-btf-dark" {...props}>
+    <th className="border border-gray-300 bg-gray-100 px-4 py-2 text-left font-semibold text-btf-dark" style={{border: '1px solid #d1d5db', padding: '8px 16px', backgroundColor: '#f9fafb', fontWeight: '600'}} {...props}>
       {children}
     </th>
   ),
   td: ({ children, ...props }) => (
-    <td className="border border-gray-300 px-4 py-2 text-gray-700" {...props}>
+    <td className="border border-gray-300 px-4 py-2 text-gray-700" style={{border: '1px solid #d1d5db', padding: '8px 16px'}} {...props}>
       {children}
     </td>
   ),
@@ -163,7 +171,7 @@ export default async function ArticlePage({ params }) {
         {/* Article Content */}
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="bg-white rounded-lg shadow-md p-8">
-            <MDXRemote source={post.content} components={mdxComponents} />
+            <MDXRemote source={post.content} components={mdxComponents} options={mdxOptions} />
           </div>
         </div>
 
