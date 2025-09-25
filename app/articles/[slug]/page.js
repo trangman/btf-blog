@@ -4,11 +4,12 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import remarkGfm from 'remark-gfm'
 import FAQAccordion from '../../components/FAQAccordion'
+import { remarkFAQAccordion } from '../../lib/remark-faq-accordion'
 
 // MDX Options for proper rendering
 const mdxOptions = {
   mdxOptions: {
-    remarkPlugins: [remarkGfm],
+    remarkPlugins: [remarkGfm, remarkFAQAccordion],
     rehypePlugins: [],
   },
 }
@@ -100,27 +101,6 @@ const mdxComponents = {
   FAQAccordion: ({ faqs, ...props }) => (
     <FAQAccordion faqs={faqs} {...props} />
   ),
-  // Custom component to parse Q&A format and convert to accordion
-  FAQSection: ({ children, ...props }) => {
-    // Extract Q&A pairs from the text content
-    const text = children?.toString() || ''
-    const qaPairs = []
-    
-    // Split by Q: pattern and extract questions and answers
-    const parts = text.split(/\*\*Q:/)
-    for (let i = 1; i < parts.length; i++) {
-      const part = parts[i]
-      const qaMatch = part.match(/^([^?]*\?)\*\*\s*A:\s*(.*?)(?=\*\*Q:|$)/s)
-      if (qaMatch) {
-        qaPairs.push({
-          question: qaMatch[1].trim(),
-          answer: qaMatch[2].trim()
-        })
-      }
-    }
-    
-    return <FAQAccordion faqs={qaPairs} {...props} />
-  },
 }
 
 export async function generateStaticParams() {
