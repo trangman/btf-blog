@@ -5,7 +5,7 @@ import AuthSessionProvider from './components/SessionProvider'
 
 // Compute base URL from env for production canonicals
 const envBase = (process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_VERCEL_URL || '').trim()
-export const siteUrl = envBase
+const siteUrl = envBase
   ? (envBase.startsWith('http') ? envBase : `https://${envBase}`).replace(/\/+$/, '')
   : 'https://betterthanfreehold.com'
 
