@@ -15,6 +15,17 @@ export default function FAQAccordion({ faqs }) {
     setOpenItems(newOpenItems)
   }
 
+  // Function to render markdown-style bold text
+  const renderMarkdown = (text) => {
+    return text.split(/(\*\*.*?\*\*)/g).map((part, index) => {
+      if (part.startsWith('**') && part.endsWith('**')) {
+        const boldText = part.slice(2, -2)
+        return <strong key={index} className="font-semibold text-btf-dark">{boldText}</strong>
+      }
+      return part
+    })
+  }
+
   // Generate FAQ Schema Markup
   const faqSchema = {
     "@context": "https://schema.org",
@@ -71,7 +82,7 @@ export default function FAQAccordion({ faqs }) {
             >
               <div className="px-6 py-4 bg-white border-t border-gray-200">
                 <div className="text-gray-700 leading-relaxed">
-                  {faq.answer}
+                  {renderMarkdown(faq.answer)}
                 </div>
               </div>
             </div>
