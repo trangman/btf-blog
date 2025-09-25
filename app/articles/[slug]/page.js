@@ -181,33 +181,6 @@ export default async function ArticlePage({ params }) {
         {/* Article Content */}
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="bg-white rounded-lg shadow-md p-8">
-            <style jsx>{`
-              .faq-section p {
-                margin-bottom: 0.5rem;
-              }
-              .faq-section p:has(strong:first-child) {
-                background-color: #f9fafb;
-                padding: 1rem;
-                border-left: 4px solid #3b82f6;
-                margin-bottom: 0.5rem;
-                font-weight: 600;
-                cursor: pointer;
-                transition: background-color 0.2s;
-                border-radius: 4px;
-              }
-              .faq-section p:has(strong:first-child):hover {
-                background-color: #f3f4f6;
-              }
-              .faq-section p:not(:has(strong:first-child)) {
-                padding-left: 1rem;
-                padding-right: 1rem;
-                padding-bottom: 1rem;
-                background-color: white;
-                border-left: 1px solid #e5e7eb;
-                margin-bottom: 0.5rem;
-                border-radius: 4px;
-              }
-            `}</style>
             <MDXRemote source={post.content} components={mdxComponents} options={mdxOptions} />
           </div>
         </div>
