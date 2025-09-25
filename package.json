@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "tina-dev": "tinacms dev -c \"next dev\"",
-    "tina-build": "tinacms build && next build",
+    "tina-build": "tinacms build --local && next build",
+    "build-prod": "next build",
     "tina-audit": "tinacms audit",
     "vercel-build": "npm run tina-build"
   },
