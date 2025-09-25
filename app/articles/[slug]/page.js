@@ -3,6 +3,7 @@ import { MDXRemote } from 'next-mdx-remote/rsc'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import remarkGfm from 'remark-gfm'
+import FAQAccordion from '../../components/FAQAccordion'
 
 // MDX Options for proper rendering
 const mdxOptions = {
@@ -95,6 +96,9 @@ const mdxComponents = {
     <em className="italic text-gray-600" style={{fontStyle: 'italic', color: '#4b5563'}} {...props}>
       {children}
     </em>
+  ),
+  FAQAccordion: ({ faqs, ...props }) => (
+    <FAQAccordion faqs={faqs} {...props} />
   ),
 }
 
