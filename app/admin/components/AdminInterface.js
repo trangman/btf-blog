@@ -93,10 +93,10 @@ export default function AdminInterface() {
                     </div>
                     <div className="mt-4">
                       <button 
-                        onClick={() => window.open('/admin/index.html#/collections/post', '_blank')}
+                        onClick={() => window.open('http://localhost:4001/admin/index.html#/collections/post', '_blank')}
                         className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium"
                       >
-                        Manage Posts
+                        Manage Posts (Local)
                       </button>
                     </div>
                   </div>
@@ -109,21 +109,21 @@ export default function AdminInterface() {
                     </div>
                     <div className="mt-4">
                       <button 
-                        onClick={() => window.open('/admin/index.html#/collections/page', '_blank')}
+                        onClick={() => window.open('http://localhost:4001/admin/index.html#/collections/page', '_blank')}
                         className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium"
                       >
-                        Manage Pages
+                        Manage Pages (Local)
                       </button>
                     </div>
                   </div>
                 </div>
 
                 <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                  <h3 className="font-medium text-blue-900 mb-2">🚀 Next Steps</h3>
+                  <h3 className="font-medium text-blue-900 mb-2">🚀 Content Management</h3>
                   <div className="text-sm text-blue-700 space-y-1">
-                    <p>• Click "Manage Posts" or "Manage Pages" to edit content</p>
-                    <p>• Use `npm run tina-dev` to start the full TinaCMS development server</p>
-                    <p>• Create new posts and pages directly from the TinaCMS interface</p>
+                    <p>• For content editing, run <code className="bg-blue-100 px-1 rounded">npm run tina-dev</code> locally</p>
+                    <p>• This will start TinaCMS on <code className="bg-blue-100 px-1 rounded">http://localhost:4001</code></p>
+                    <p>• Edit content locally and push changes to deploy</p>
                   </div>
                 </div>
               </div>

@@ -1,5 +1,5 @@
 {
-  "buildCommand": "git submodule update --init --recursive && npm run tina-build",
+  "buildCommand": "git submodule update --init --recursive && npm run build-prod",
   "outputDirectory": ".next",
   "framework": "nextjs",
   "installCommand": "npm install",
