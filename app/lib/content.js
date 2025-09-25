@@ -58,7 +58,7 @@ export async function getAllPosts(userRole = null) {
           try {
             const filePath = path.join(postsDirectory, filename)
             const fileContents = await fs.readFile(filePath, 'utf8')
-            const { data } = matter(fileContents)
+            const { data, content } = matter(fileContents)
             
             return {
               slug: filename.replace(/\.mdx$/, ''),
