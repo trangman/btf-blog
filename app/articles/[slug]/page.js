@@ -39,8 +39,8 @@ export default async function ArticlePage({ params }) {
   if (!post) {
     notFound()
   }
-    
-    return (
+
+  return (
       <div className="min-h-screen bg-gray-50">
         {/* Article Header */}
         <div className="bg-white shadow-sm">
@@ -129,5 +129,4 @@ export default async function ArticlePage({ params }) {
         </div>
       </div>
     )
-  }
 }
