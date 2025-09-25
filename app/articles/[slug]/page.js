@@ -3,6 +3,77 @@ import { MDXRemote } from 'next-mdx-remote/rsc'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
+// MDX Components for proper rendering
+const mdxComponents = {
+  h1: ({ children, ...props }) => (
+    <h1 className="text-3xl font-bold text-btf-dark mb-6 mt-8 first:mt-0" {...props}>
+      {children}
+    </h1>
+  ),
+  h2: ({ children, ...props }) => (
+    <h2 className="text-2xl font-semibold text-btf-dark mb-4 mt-6" {...props}>
+      {children}
+    </h2>
+  ),
+  h3: ({ children, ...props }) => (
+    <h3 className="text-xl font-semibold text-btf-dark mb-3 mt-5" {...props}>
+      {children}
+    </h3>
+  ),
+  p: ({ children, ...props }) => (
+    <p className="text-gray-700 mb-4 leading-relaxed" {...props}>
+      {children}
+    </p>
+  ),
+  ul: ({ children, ...props }) => (
+    <ul className="list-disc list-inside mb-4 space-y-2 text-gray-700" {...props}>
+      {children}
+    </ul>
+  ),
+  ol: ({ children, ...props }) => (
+    <ol className="list-decimal list-inside mb-4 space-y-2 text-gray-700" {...props}>
+      {children}
+    </ol>
+  ),
+  li: ({ children, ...props }) => (
+    <li className="text-gray-700" {...props}>
+      {children}
+    </li>
+  ),
+  blockquote: ({ children, ...props }) => (
+    <blockquote className="border-l-4 border-btf-accent pl-4 py-2 mb-4 bg-gray-50 italic text-gray-600" {...props}>
+      {children}
+    </blockquote>
+  ),
+  table: ({ children, ...props }) => (
+    <div className="overflow-x-auto mb-6">
+      <table className="min-w-full border-collapse border border-gray-300" {...props}>
+        {children}
+      </table>
+    </div>
+  ),
+  th: ({ children, ...props }) => (
+    <th className="border border-gray-300 bg-gray-100 px-4 py-2 text-left font-semibold text-btf-dark" {...props}>
+      {children}
+    </th>
+  ),
+  td: ({ children, ...props }) => (
+    <td className="border border-gray-300 px-4 py-2 text-gray-700" {...props}>
+      {children}
+    </td>
+  ),
+  strong: ({ children, ...props }) => (
+    <strong className="font-semibold text-btf-dark" {...props}>
+      {children}
+    </strong>
+  ),
+  em: ({ children, ...props }) => (
+    <em className="italic text-gray-600" {...props}>
+      {children}
+    </em>
+  ),
+}
+
 export async function generateStaticParams() {
   const posts = await getAllPosts()
   return posts.map((post) => ({
@@ -76,8 +147,8 @@ export default async function ArticlePage({ params }) {
 
         {/* Article Content */}
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="bg-white rounded-lg shadow-md p-8 prose prose-lg max-w-none">
-            <MDXRemote source={post.content} />
+          <div className="bg-white rounded-lg shadow-md p-8">
+            <MDXRemote source={post.content} components={mdxComponents} />
           </div>
         </div>
 
