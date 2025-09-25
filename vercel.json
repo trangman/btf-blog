@@ -1,8 +1,8 @@
 {
-  "buildCommand": "npm run tina-build",
+  "buildCommand": "npm install --legacy-peer-deps && npm run tina-build",
   "outputDirectory": ".next",
   "framework": "nextjs",
-  "installCommand": "npm install",
+  "installCommand": "npm install --legacy-peer-deps",
   "devCommand": "npm run tina-dev",
   "functions": {
     "app/api/**/*.js": {
