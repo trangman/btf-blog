@@ -89,11 +89,11 @@ export default function AdminInterface() {
                     <h3 className="font-medium text-gray-900 mb-3">📝 Posts</h3>
                     <p className="text-sm text-gray-600 mb-4">Manage blog posts and articles</p>
                     <div className="space-y-2">
-                      <div className="text-sm text-gray-500">• welcome-to-btf.mdx</div>
+                      <div className="text-sm text-gray-500">• 5 articles available</div>
                     </div>
                     <div className="mt-4">
                       <button 
-                        onClick={() => window.open('http://localhost:4001/admin/index.html#/collections/post', '_blank')}
+                        onClick={() => window.open('/admin/index.html#/collections/post', '_blank')}
                         className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium"
                       >
                         Manage Posts
@@ -109,7 +109,7 @@ export default function AdminInterface() {
                     </div>
                     <div className="mt-4">
                       <button 
-                        onClick={() => window.open('http://localhost:4001/admin/index.html#/collections/page', '_blank')}
+                        onClick={() => window.open('/admin/index.html#/collections/page', '_blank')}
                         className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium"
                       >
                         Manage Pages
