@@ -1,88 +1,44 @@
-import { promises as fs } from 'fs'
-import path from 'path'
-import matter from 'gray-matter'
+import { getPostBySlug, getAllPosts } from '../../lib/content'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
 export async function generateStaticParams() {
-  try {
-    const postsDirectory = path.join(process.cwd(), 'content/posts')
-    
-    // Check if directory exists
-    try {
-      await fs.access(postsDirectory)
-    } catch (error) {
-      console.warn('Content directory not found for static params:', postsDirectory)
-      return []
-    }
-    
-    const filenames = await fs.readdir(postsDirectory)
-    return filenames
-      .filter(filename => filename.endsWith('.mdx'))
-      .map((filename) => ({
-        slug: filename.replace(/\.mdx$/, ''),
-      }))
-  } catch (error) {
-    console.error('Error generating static params:', error)
-    return []
-  }
+  const posts = await getAllPosts()
+  return posts.map((post) => ({
+    slug: post.slug,
+  }))
 }
 
 export async function generateMetadata({ params }) {
   const { slug } = params
-  const postsDirectory = path.join(process.cwd(), 'content/posts')
+  const post = await getPostBySlug(slug)
   
-  try {
-    // Check if directory exists
-    try {
-      await fs.access(postsDirectory)
-    } catch (error) {
-      console.warn('Content directory not found for metadata:', postsDirectory)
-      return {
-        title: 'Article Not Found',
-        description: 'The requested article could not be found.',
-      }
-    }
-    
-    const filePath = path.join(postsDirectory, `${slug}.mdx`)
-    const fileContents = await fs.readFile(filePath, 'utf8')
-    const { data } = matter(fileContents)
-    
-    return {
-      title: data.title,
-      description: data.description,
-      openGraph: {
-        title: data.title,
-        description: data.description,
-        images: data.heroImage ? [data.heroImage] : [],
-      },
-    }
-  } catch (error) {
-    console.error('Error generating metadata:', error)
+  if (!post) {
     return {
       title: 'Article Not Found',
       description: 'The requested article could not be found.',
     }
   }
+  
+  return {
+    title: post.title,
+    description: post.description,
+    openGraph: {
+      title: post.title,
+      description: post.description,
+      images: post.heroImage ? [post.heroImage] : [],
+    },
+  }
 }
 
 export default async function ArticlePage({ params }) {
   const { slug } = params
-  const postsDirectory = path.join(process.cwd(), 'content/posts')
+  const post = await getPostBySlug(slug)
   
-  try {
-    // Check if directory exists
-    try {
-      await fs.access(postsDirectory)
-    } catch (error) {
-      console.warn('Content directory not found:', postsDirectory)
-      notFound()
-    }
-    
-    const filePath = path.join(postsDirectory, `${slug}.mdx`)
-    const fileContents = await fs.readFile(filePath, 'utf8')
-    const { data, content } = matter(fileContents)
+  if (!post) {
+    notFound()
+  }
     
     return (
       <div className="min-h-screen bg-gray-50">
@@ -91,28 +47,28 @@ export default async function ArticlePage({ params }) {
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div className="text-center">
               <div className="text-sm text-gray-500 mb-4">
-                {new Date(data.pubDate).toLocaleDateString('en-US', {
+                {new Date(post.pubDate).toLocaleDateString('en-US', {
                   year: 'numeric',
                   month: 'long',
                   day: 'numeric'
                 })}
               </div>
               <h1 className="text-4xl font-bold text-btf-dark mb-6">
-                {data.title}
+                {post.title}
               </h1>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                {data.description}
+                {post.description}
               </p>
             </div>
           </div>
         </div>
 
         {/* Hero Image */}
-        {data.heroImage && (
+        {post.heroImage && (
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <img
-              src={data.heroImage}
-              alt={data.title}
+              src={post.heroImage}
+              alt={post.title}
               className="w-full h-64 md:h-96 object-cover rounded-lg shadow-md"
             />
           </div>
@@ -121,7 +77,7 @@ export default async function ArticlePage({ params }) {
         {/* Article Content */}
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="bg-white rounded-lg shadow-md p-8 prose prose-lg max-w-none">
-            <MDXRemote source={content} />
+            <MDXRemote source={post.content} />
           </div>
         </div>
 
@@ -173,8 +129,5 @@ export default async function ArticlePage({ params }) {
         </div>
       </div>
     )
-  } catch (error) {
-    console.error('Error loading article:', error)
-    notFound()
   }
 }

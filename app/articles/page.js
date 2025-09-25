@@ -1,53 +1,5 @@
-import { promises as fs } from 'fs'
-import path from 'path'
-import matter from 'gray-matter'
+import { getAllPosts } from '../lib/content'
 import Link from 'next/link'
-
-async function getAllPosts() {
-  try {
-    const postsDirectory = path.join(process.cwd(), 'content/posts')
-    
-    // Check if directory exists
-    try {
-      await fs.access(postsDirectory)
-    } catch (error) {
-      console.warn('Content directory not found:', postsDirectory)
-      return []
-    }
-    
-    const filenames = await fs.readdir(postsDirectory)
-    const posts = await Promise.all(
-      filenames
-        .filter(filename => filename.endsWith('.mdx'))
-        .map(async (filename) => {
-          try {
-            const filePath = path.join(postsDirectory, filename)
-            const fileContents = await fs.readFile(filePath, 'utf8')
-            const { data } = matter(fileContents)
-            
-            return {
-              slug: filename.replace(/\.mdx$/, ''),
-              title: data.title,
-              description: data.description,
-              pubDate: data.pubDate,
-              heroImage: data.heroImage,
-            }
-          } catch (error) {
-            console.error(`Error reading file ${filename}:`, error)
-            return null
-          }
-        })
-    )
-    
-    // Filter out null results and sort by date
-    return posts
-      .filter(post => post !== null)
-      .sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate))
-  } catch (error) {
-    console.error('Error loading posts:', error)
-    return []
-  }
-}
 
 export default async function ArticlesPage() {
   const posts = await getAllPosts()

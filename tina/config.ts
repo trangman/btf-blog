@@ -60,6 +60,23 @@ export default defineConfig({
             },
           },
           {
+            type: 'string',
+            name: 'audience',
+            label: 'Target Audience',
+            description: 'Primary audience for this article',
+            options: [
+              'BUYER',
+              'ACCOUNTANT', 
+              'DEVELOPER',
+              'LAWYER',
+              'EXISTING_PROPERTY_OWNER',
+              'GENERAL'
+            ],
+            ui: {
+              component: 'select',
+            },
+          },
+          {
             type: 'rich-text',
             name: 'body',
             label: 'Body',
