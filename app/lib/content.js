@@ -68,7 +68,7 @@ export async function getAllPosts(userRole = null) {
               heroImage: data.heroImage,
               categories: data.categories ? data.categories.split(',').map(c => c.trim()) : [],
               audience: data.audience && data.audience !== 'undefined' ? data.audience : 'GENERAL',
-              content: fileContents,
+              content: content,
             }
           } catch (error) {
             console.error(`Error reading file ${filename}:`, error)
