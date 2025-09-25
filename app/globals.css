@@ -25,11 +25,12 @@
 }
 
 /* FAQ Section Styling */
-.faq-section p {
-  margin-bottom: 0.5rem;
+.faq-section {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
-.faq-section p:has(strong:first-child) {
+.faq-question {
   background-color: #f9fafb;
   padding: 1rem;
   border-left: 4px solid #3b82f6;
@@ -40,11 +41,11 @@
   border-radius: 4px;
 }
 
-.faq-section p:has(strong:first-child):hover {
+.faq-question:hover {
   background-color: #f3f4f6;
 }
 
-.faq-section p:not(:has(strong:first-child)) {
+.faq-answer {
   padding-left: 1rem;
   padding-right: 1rem;
   padding-bottom: 1rem;

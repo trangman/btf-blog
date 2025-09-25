@@ -29,11 +29,27 @@ const mdxComponents = {
       {children}
     </h3>
   ),
-  p: ({ children, ...props }) => (
-    <p className="text-gray-700 mb-4 leading-relaxed" style={{color: '#374151', marginBottom: '1rem', lineHeight: '1.625'}} {...props}>
-      {children}
-    </p>
-  ),
+  p: ({ children, ...props }) => {
+    const text = children?.toString() || ''
+    if (text.startsWith('**Q:')) {
+      return (
+        <p className="faq-question" {...props}>
+          {children}
+        </p>
+      )
+    } else if (text.startsWith('A:')) {
+      return (
+        <p className="faq-answer" {...props}>
+          {children}
+        </p>
+      )
+    }
+    return (
+      <p className="text-gray-700 mb-4 leading-relaxed" style={{color: '#374151', marginBottom: '1rem', lineHeight: '1.625'}} {...props}>
+        {children}
+      </p>
+    )
+  },
   ul: ({ children, ...props }) => (
     <ul className="mb-4 text-gray-700" style={{listStyleType: 'disc', paddingLeft: '1.5rem', marginBottom: '1rem', color: '#374151'}} {...props}>
       {children}
@@ -98,10 +114,7 @@ const mdxComponents = {
   ),
   // Custom FAQ styling component
   FAQSection: ({ children, ...props }) => (
-    <div className="faq-section" style={{
-      marginTop: '2rem',
-      marginBottom: '2rem'
-    }} {...props}>
+    <div className="faq-section" {...props}>
       {children}
     </div>
   ),
