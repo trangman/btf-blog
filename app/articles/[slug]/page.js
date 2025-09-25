@@ -16,17 +16,17 @@ const mdxOptions = {
 // MDX Components for proper rendering
 const mdxComponents = {
   h1: ({ children, ...props }) => (
-    <h1 className="text-3xl font-bold text-btf-dark mb-6 mt-8 first:mt-0" style={{fontSize: '1.875rem', fontWeight: 'bold', color: '#1f2937', marginBottom: '1.5rem', marginTop: '2rem'}} {...props}>
+    <h1 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-btf-dark mb-6 mt-8 first:mt-0" {...props}>
       {children}
     </h1>
   ),
   h2: ({ children, ...props }) => (
-    <h2 className="text-2xl font-semibold text-btf-dark mb-4 mt-6" style={{fontSize: '1.5rem', fontWeight: '600', color: '#1f2937', marginBottom: '1rem', marginTop: '1.5rem'}} {...props}>
+    <h2 className="text-2xl lg:text-3xl xl:text-4xl font-semibold text-btf-dark mb-4 mt-6" {...props}>
       {children}
     </h2>
   ),
   h3: ({ children, ...props }) => (
-    <h3 className="text-xl font-semibold text-btf-dark mb-3 mt-5" style={{fontSize: '1.25rem', fontWeight: '600', color: '#1f2937', marginBottom: '0.75rem', marginTop: '1.25rem'}} {...props}>
+    <h3 className="text-xl lg:text-2xl xl:text-3xl font-semibold text-btf-dark mb-3 mt-5" {...props}>
       {children}
     </h3>
   ),
@@ -46,7 +46,7 @@ const mdxComponents = {
       )
     }
     return (
-      <p className="text-gray-700 mb-4 leading-relaxed" style={{color: '#374151', marginBottom: '1rem', lineHeight: '1.625'}} {...props}>
+      <p className="text-gray-700 mb-4 leading-relaxed text-base lg:text-lg xl:text-xl" {...props}>
         {children}
       </p>
     )
@@ -166,7 +166,7 @@ export default async function ArticlePage({ params }) {
       <div className="min-h-screen bg-gray-50">
         {/* Article Header */}
         <div className="bg-white shadow-sm">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="max-w-2xl lg:max-w-4xl xl:max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div className="text-center">
               <div className="text-sm text-gray-500 mb-4">
                 {new Date(post.pubDate).toLocaleDateString('en-US', {
@@ -175,10 +175,10 @@ export default async function ArticlePage({ params }) {
                   day: 'numeric'
                 })}
               </div>
-              <h1 className="text-4xl font-bold text-btf-dark mb-6">
+              <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-btf-dark mb-6">
                 {post.title}
               </h1>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              <p className="text-xl lg:text-2xl text-gray-600 max-w-4xl mx-auto">
                 {post.description}
               </p>
             </div>
@@ -187,24 +187,26 @@ export default async function ArticlePage({ params }) {
 
         {/* Hero Image */}
         {post.heroImage && (
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="max-w-2xl lg:max-w-4xl xl:max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <img
               src={post.heroImage}
               alt={post.title}
-              className="w-full h-64 md:h-96 object-cover rounded-lg shadow-md"
+              className="w-full h-64 md:h-96 lg:h-[28rem] xl:h-[32rem] object-cover rounded-lg shadow-md"
             />
           </div>
         )}
 
         {/* Article Content */}
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="bg-white rounded-lg shadow-md p-8">
-            <MDXRemote source={post.content} components={mdxComponents} options={mdxOptions} />
+        <div className="max-w-2xl lg:max-w-4xl xl:max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="bg-white rounded-lg shadow-md p-6 lg:p-8 xl:p-12">
+            <div className="prose prose-lg lg:prose-xl xl:prose-2xl max-w-none">
+              <MDXRemote source={post.content} components={mdxComponents} options={mdxOptions} />
+            </div>
           </div>
         </div>
 
         {/* Navigation */}
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="max-w-2xl lg:max-w-4xl xl:max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex justify-between items-center">
             <Link
               href="/articles"
