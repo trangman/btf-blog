@@ -18,9 +18,6 @@ export default defineConfig({
       publicFolder: 'public',
     },
   },
-  server: {
-    port: 4001,
-  },
   schema: {
     collections: [
       {
