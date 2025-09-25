@@ -24,14 +24,9 @@ export const ROLE_TO_CATEGORIES = {
 
 // Check if a post is accessible by a user role
 export function isPostAccessibleByRole(post, userRole) {
-  // If no audience specified, check categories for backward compatibility
-  if (!post.audience) {
-    if (!post.categories || post.categories.length === 0) {
-      return true
-    }
-    
-    const allowedCategories = ROLE_TO_CATEGORIES[userRole] || ['general']
-    return post.categories.some(category => allowedCategories.includes(category))
+  // If no audience specified, make it accessible to everyone (backward compatibility)
+  if (!post.audience || post.audience === 'undefined') {
+    return true
   }
   
   // Use audience field for filtering
@@ -72,7 +67,7 @@ export async function getAllPosts(userRole = null) {
               pubDate: data.pubDate,
               heroImage: data.heroImage,
               categories: data.categories ? data.categories.split(',').map(c => c.trim()) : [],
-              audience: data.audience || 'GENERAL',
+              audience: data.audience && data.audience !== 'undefined' ? data.audience : 'GENERAL',
               content: fileContents,
             }
           } catch (error) {
@@ -119,7 +114,7 @@ export async function getPostBySlug(slug, userRole = null) {
       pubDate: data.pubDate,
       heroImage: data.heroImage,
       categories: data.categories ? data.categories.split(',').map(c => c.trim()) : [],
-      audience: data.audience || 'GENERAL',
+      audience: data.audience && data.audience !== 'undefined' ? data.audience : 'GENERAL',
       content,
     }
     
