@@ -4,7 +4,6 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import remarkGfm from 'remark-gfm'
 import FAQAccordion from '../../components/FAQAccordion'
-import TableOfContents from '../../components/TableOfContents'
 
 // Generate slug from heading text
 const generateSlug = (text) => {
@@ -15,20 +14,6 @@ const generateSlug = (text) => {
     .trim()
 }
 
-// Extract headings from MDX content
-const extractHeadings = (content) => {
-  const headingRegex = /^(#{1,6})\s+(.+)$/gm
-  const headings = []
-  let match
-
-  while ((match = headingRegex.exec(content)) !== null) {
-    const level = match[1].length
-    const text = match[2].trim()
-    headings.push({ level, text })
-  }
-
-  return headings
-}
 
 // MDX Options for proper rendering
 const mdxOptions = {
@@ -160,6 +145,44 @@ const mdxComponents = {
   FAQAccordion: ({ faqs, ...props }) => (
     <FAQAccordion faqs={faqs} {...props} />
   ),
+  // Custom TOC link component
+  a: ({ href, children, ...props }) => {
+    // Check if this is a TOC link (starts with #)
+    if (href && href.startsWith('#')) {
+      const targetId = href.substring(1) // Remove the #
+      return (
+        <a
+          href={href}
+          onClick={(e) => {
+            e.preventDefault()
+            const element = document.getElementById(targetId)
+            if (element) {
+              element.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start',
+              })
+            }
+          }}
+          className="text-btf-accent hover:text-btf-dark hover:underline transition-colors cursor-pointer font-medium"
+          {...props}
+        >
+          {children}
+        </a>
+      )
+    }
+    // Regular external links
+    return (
+      <a
+        href={href}
+        className="text-btf-accent hover:text-btf-dark hover:underline transition-colors"
+        target={href?.startsWith('http') ? '_blank' : undefined}
+        rel={href?.startsWith('http') ? 'noopener noreferrer' : undefined}
+        {...props}
+      >
+        {children}
+      </a>
+    )
+  },
 }
 
 export async function generateStaticParams() {
@@ -199,8 +222,6 @@ export default async function ArticlePage({ params }) {
     notFound()
   }
 
-  // Extract headings from the content
-  const headings = extractHeadings(post.content)
 
   return (
       <div className="min-h-screen bg-gray-50">
@@ -233,13 +254,6 @@ export default async function ArticlePage({ params }) {
               alt={post.title}
               className="w-full h-64 md:h-96 lg:h-[28rem] xl:h-[32rem] object-cover rounded-lg shadow-md"
             />
-          </div>
-        )}
-
-        {/* Table of Contents */}
-        {headings.length > 0 && (
-          <div className="max-w-2xl lg:max-w-4xl xl:max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <TableOfContents headings={headings} />
           </div>
         )}
 
