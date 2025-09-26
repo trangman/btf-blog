@@ -4,6 +4,31 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import remarkGfm from 'remark-gfm'
 import FAQAccordion from '../../components/FAQAccordion'
+import TableOfContents from '../../components/TableOfContents'
+
+// Generate slug from heading text
+const generateSlug = (text) => {
+  return text
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, '') // Remove special characters
+    .replace(/\s+/g, '-') // Replace spaces with hyphens
+    .trim()
+}
+
+// Extract headings from MDX content
+const extractHeadings = (content) => {
+  const headingRegex = /^(#{1,6})\s+(.+)$/gm
+  const headings = []
+  let match
+
+  while ((match = headingRegex.exec(content)) !== null) {
+    const level = match[1].length
+    const text = match[2].trim()
+    headings.push({ level, text })
+  }
+
+  return headings
+}
 
 // MDX Options for proper rendering
 const mdxOptions = {
@@ -15,21 +40,33 @@ const mdxOptions = {
 
 // MDX Components for proper rendering
 const mdxComponents = {
-  h1: ({ children, ...props }) => (
-    <h1 className="text-xl lg:text-2xl xl:text-3xl font-bold text-btf-dark mb-6 mt-8 first:mt-0" {...props}>
-      {children}
-    </h1>
-  ),
-  h2: ({ children, ...props }) => (
-    <h2 className="text-lg lg:text-xl xl:text-2xl font-semibold text-btf-dark mb-4 mt-6" {...props}>
-      {children}
-    </h2>
-  ),
-  h3: ({ children, ...props }) => (
-    <h3 className="text-base lg:text-lg xl:text-xl font-semibold text-btf-dark mb-3 mt-5" {...props}>
-      {children}
-    </h3>
-  ),
+  h1: ({ children, ...props }) => {
+    const text = children?.toString() || ''
+    const id = generateSlug(text)
+    return (
+      <h1 id={id} className="text-xl lg:text-2xl xl:text-3xl font-bold text-btf-dark mb-6 mt-8 first:mt-0" {...props}>
+        {children}
+      </h1>
+    )
+  },
+  h2: ({ children, ...props }) => {
+    const text = children?.toString() || ''
+    const id = generateSlug(text)
+    return (
+      <h2 id={id} className="text-lg lg:text-xl xl:text-2xl font-semibold text-btf-dark mb-4 mt-6" {...props}>
+        {children}
+      </h2>
+    )
+  },
+  h3: ({ children, ...props }) => {
+    const text = children?.toString() || ''
+    const id = generateSlug(text)
+    return (
+      <h3 id={id} className="text-base lg:text-lg xl:text-xl font-semibold text-btf-dark mb-3 mt-5" {...props}>
+        {children}
+      </h3>
+    )
+  },
   p: ({ children, ...props }) => {
     const text = children?.toString() || ''
     if (text.startsWith('**Q:')) {
@@ -162,6 +199,9 @@ export default async function ArticlePage({ params }) {
     notFound()
   }
 
+  // Extract headings from the content
+  const headings = extractHeadings(post.content)
+
   return (
       <div className="min-h-screen bg-gray-50">
         {/* Article Header */}
@@ -193,6 +233,13 @@ export default async function ArticlePage({ params }) {
               alt={post.title}
               className="w-full h-64 md:h-96 lg:h-[28rem] xl:h-[32rem] object-cover rounded-lg shadow-md"
             />
+          </div>
+        )}
+
+        {/* Table of Contents */}
+        {headings.length > 0 && (
+          <div className="max-w-2xl lg:max-w-4xl xl:max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <TableOfContents headings={headings} />
           </div>
         )}
 
