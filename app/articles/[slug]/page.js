@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import remarkGfm from 'remark-gfm'
 import FAQAccordion from '../../components/FAQAccordion'
+import TOCLink from '../../components/TOCLink'
 
 // Generate slug from heading text
 const generateSlug = (text) => {
@@ -146,43 +147,11 @@ const mdxComponents = {
     <FAQAccordion faqs={faqs} {...props} />
   ),
   // Custom TOC link component
-  a: ({ href, children, ...props }) => {
-    // Check if this is a TOC link (starts with #)
-    if (href && href.startsWith('#')) {
-      const targetId = href.substring(1) // Remove the #
-      return (
-        <a
-          href={href}
-          onClick={(e) => {
-            e.preventDefault()
-            const element = document.getElementById(targetId)
-            if (element) {
-              element.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start',
-              })
-            }
-          }}
-          className="text-btf-accent hover:text-btf-dark hover:underline transition-colors cursor-pointer font-medium"
-          {...props}
-        >
-          {children}
-        </a>
-      )
-    }
-    // Regular external links
-    return (
-      <a
-        href={href}
-        className="text-btf-accent hover:text-btf-dark hover:underline transition-colors"
-        target={href?.startsWith('http') ? '_blank' : undefined}
-        rel={href?.startsWith('http') ? 'noopener noreferrer' : undefined}
-        {...props}
-      >
-        {children}
-      </a>
-    )
-  },
+  a: ({ href, children, className, ...props }) => (
+    <TOCLink href={href} className={className} {...props}>
+      {children}
+    </TOCLink>
+  ),
 }
 
 export async function generateStaticParams() {
