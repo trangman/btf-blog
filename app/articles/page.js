@@ -1,11 +1,16 @@
 import { getAllPosts } from '../lib/content'
 import Link from 'next/link'
+import Navigation from '../components/Navigation'
+import Footer from '../components/Footer'
 
 export default async function ArticlesPage() {
   const posts = await getAllPosts()
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* Navigation */}
+      <Navigation />
+      
       {/* Header */}
       <div className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -103,6 +108,9 @@ export default async function ArticlesPage() {
           </div>
         </div>
       </div>
+      
+      {/* Footer */}
+      <Footer />
     </div>
   )
 }

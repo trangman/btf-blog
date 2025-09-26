@@ -6,6 +6,8 @@ import remarkGfm from 'remark-gfm'
 import FAQAccordion from '../../components/FAQAccordion'
 import TOCLink from '../../components/TOCLink'
 import ArticleSchema from '../../components/ArticleSchema'
+import Navigation from '../../components/Navigation'
+import Footer from '../../components/Footer'
 
 // Generate slug from heading text
 const generateSlug = (text) => {
@@ -266,6 +268,9 @@ export default async function ArticlePage({ params }) {
         />
         
         <div className="min-h-screen bg-gray-50">
+        {/* Navigation */}
+        <Navigation />
+        
         {/* Article Header */}
         <div className="bg-white shadow-sm">
           <div className="max-w-2xl lg:max-w-4xl xl:max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -353,6 +358,9 @@ export default async function ArticlePage({ params }) {
             </div>
           </div>
         </div>
+        
+        {/* Footer */}
+        <Footer />
       </div>
       </>
     )
