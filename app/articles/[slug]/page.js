@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation'
 import remarkGfm from 'remark-gfm'
 import FAQAccordion from '../../components/FAQAccordion'
 import TOCLink from '../../components/TOCLink'
+import ArticleSchema from '../../components/ArticleSchema'
 
 // Generate slug from heading text
 const generateSlug = (text) => {
@@ -172,13 +173,73 @@ export async function generateMetadata({ params }) {
     }
   }
   
+  const siteUrl = 'https://btf-blog.vercel.app'
+  const articleUrl = `${siteUrl}/articles/${slug}`
+  const imageUrl = post.heroImage ? (post.heroImage.startsWith('http') ? post.heroImage : `${siteUrl}${post.heroImage}`) : `${siteUrl}/btf-logo.svg`
+  
   return {
     title: post.title,
     description: post.description,
+    keywords: [
+      'Thailand property law',
+      'foreign property ownership',
+      'Better-than-Freehold',
+      'nominee company risks',
+      'AMLA compliance',
+      'Thai property investment',
+      post.categories
+    ].filter(Boolean).join(', '),
+    authors: [{ name: 'BTF Legal Team' }],
+    creator: 'BTF Legal Team',
+    publisher: 'Better-than-Freehold™',
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
     openGraph: {
       title: post.title,
       description: post.description,
-      images: post.heroImage ? [post.heroImage] : [],
+      url: articleUrl,
+      siteName: 'Better-than-Freehold™',
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        }
+      ],
+      locale: 'en_US',
+      type: 'article',
+      publishedTime: post.pubDate,
+      modifiedTime: post.pubDate,
+      authors: ['BTF Legal Team'],
+      section: post.categories,
+      tags: [
+        'Thailand property law',
+        'foreign property ownership',
+        'Better-than-Freehold',
+        'nominee company risks',
+        'AMLA compliance'
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.description,
+      images: [imageUrl],
+      creator: '@btf_legal',
+      site: '@btf_legal',
+    },
+    alternates: {
+      canonical: articleUrl,
     },
   }
 }
@@ -193,7 +254,18 @@ export default async function ArticlePage({ params }) {
 
 
   return (
-      <div className="min-h-screen bg-gray-50">
+      <>
+        {/* Schema Markup */}
+        <ArticleSchema
+          title={post.title}
+          description={post.description}
+          pubDate={post.pubDate}
+          heroImage={post.heroImage}
+          categories={post.categories}
+          slug={slug}
+        />
+        
+        <div className="min-h-screen bg-gray-50">
         {/* Article Header */}
         <div className="bg-white shadow-sm">
           <div className="max-w-2xl lg:max-w-4xl xl:max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -282,5 +354,6 @@ export default async function ArticlePage({ params }) {
           </div>
         </div>
       </div>
+      </>
     )
 }
