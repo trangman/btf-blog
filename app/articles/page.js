@@ -2,6 +2,7 @@ import { getAllPosts } from '../lib/content'
 import Link from 'next/link'
 import Navigation from '../components/Navigation'
 import Footer from '../components/Footer'
+import CTAButtons from '../components/CTAButtons'
 
 export default async function ArticlesPage() {
   const posts = await getAllPosts()
@@ -84,28 +85,15 @@ export default async function ArticlesPage() {
       </div>
 
       {/* CTA Section */}
-      <div className="bg-btf-dark text-white py-16">
+      <div className="bg-btf-accent py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold mb-4">
-            Ready to Learn More?
+          <h2 className="text-3xl font-bold mb-4 text-btf-dark">
+            Ready to revolutionise your property investment journey?
           </h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Discover how Better-than-Freehold™ can help you achieve your property ownership goals in Thailand.
+          <p className="text-xl mb-8 max-w-2xl mx-auto text-btf-dark">
+            Have questions? Contact us today to discover how Better-than-Freehold™ can work for you.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/contact"
-              className="bg-btf-accent text-white hover:bg-btf-accent/90 px-8 py-3 rounded-md font-medium transition-colors"
-            >
-              Get in Touch
-            </Link>
-            <Link
-              href="/about"
-              className="border border-white text-white hover:bg-white hover:text-btf-dark px-8 py-3 rounded-md font-medium transition-colors"
-            >
-              Learn More
-            </Link>
-          </div>
+          <CTAButtons />
         </div>
       </div>
       
