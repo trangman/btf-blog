@@ -1,4 +1,4 @@
-import { getAllCategories } from '../../../lib/content'
+import { getAllCategories } from '../../lib/content'
 
 export async function GET() {
   try {

@@ -1,4 +1,4 @@
-import { getAllAudiences } from '../../../lib/content'
+import { getAllAudiences } from '../../lib/content'
 
 export async function GET() {
   try {
