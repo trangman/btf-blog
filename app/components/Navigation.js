@@ -1,10 +1,13 @@
 'use client'
 import { useState, useEffect, useRef } from 'react'
+import CategoriesDropdown from './CategoriesDropdown'
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isWhoDropdownOpen, setIsWhoDropdownOpen] = useState(false)
+  const [isCategoriesDropdownOpen, setIsCategoriesDropdownOpen] = useState(false)
   const whoDropdownRef = useRef(null)
+  const categoriesDropdownRef = useRef(null)
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
@@ -12,13 +15,22 @@ export default function Navigation() {
   
   const toggleWhoDropdown = () => {
     setIsWhoDropdownOpen(!isWhoDropdownOpen)
+    setIsCategoriesDropdownOpen(false) // Close categories dropdown when opening who dropdown
   }
 
-  // Close dropdown when clicking outside
+  const toggleCategoriesDropdown = () => {
+    setIsCategoriesDropdownOpen(!isCategoriesDropdownOpen)
+    setIsWhoDropdownOpen(false) // Close who dropdown when opening categories dropdown
+  }
+
+  // Close dropdowns when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (whoDropdownRef.current && !whoDropdownRef.current.contains(event.target)) {
         setIsWhoDropdownOpen(false)
+      }
+      if (categoriesDropdownRef.current && !categoriesDropdownRef.current.contains(event.target)) {
+        setIsCategoriesDropdownOpen(false)
       }
     }
 
@@ -49,6 +61,22 @@ export default function Navigation() {
               <a href="/articles" className="text-btf-dark hover:text-btf-accent px-3 py-2 rounded-md text-sm font-medium transition-colors">
                 Articles
               </a>
+              {/* Categories Dropdown */}
+              <div className="relative" ref={categoriesDropdownRef}>
+                <button
+                  onClick={toggleCategoriesDropdown}
+                  className="text-btf-dark hover:text-btf-accent px-3 py-2 rounded-md text-sm font-medium transition-colors flex items-center"
+                >
+                  Categories
+                  <svg className={`ml-1 h-4 w-4 transition-transform ${isCategoriesDropdownOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                <CategoriesDropdown 
+                  isOpen={isCategoriesDropdownOpen} 
+                  onClose={() => setIsCategoriesDropdownOpen(false)} 
+                />
+              </div>
               {/* Who is BtF for Dropdown */}
               <div className="relative" ref={whoDropdownRef}>
                 <button
@@ -143,6 +171,9 @@ export default function Navigation() {
           </a>
           <a href="/articles" className="text-btf-dark hover:text-btf-accent block px-3 py-2 rounded-md text-base font-medium">
             Articles
+          </a>
+          <a href="/categories" className="text-btf-dark hover:text-btf-accent block px-3 py-2 rounded-md text-base font-medium">
+            Categories
           </a>
           <span className="text-btf-dark block px-3 pt-2 text-base font-medium">
             Who is BtF For?

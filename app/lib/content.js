@@ -129,3 +129,73 @@ export async function getPostBySlug(slug, userRole = null) {
     return null
   }
 }
+
+// Get all unique categories from posts
+export async function getAllCategories() {
+  const posts = await getAllPosts()
+  const categories = new Set()
+  
+  posts.forEach(post => {
+    post.categories.forEach(category => {
+      categories.add(category)
+    })
+  })
+  
+  return Array.from(categories).sort()
+}
+
+// Get all unique audiences from posts
+export async function getAllAudiences() {
+  const posts = await getAllPosts()
+  const audiences = new Set()
+  
+  posts.forEach(post => {
+    audiences.add(post.audience)
+  })
+  
+  return Array.from(audiences).sort()
+}
+
+// Get posts by category
+export async function getPostsByCategory(category, userRole = null) {
+  const posts = await getAllPosts(userRole)
+  return posts.filter(post => post.categories.includes(category))
+}
+
+// Get posts by audience
+export async function getPostsByAudience(audience, userRole = null) {
+  const posts = await getAllPosts(userRole)
+  return posts.filter(post => post.audience === audience)
+}
+
+// Get category display name
+export function getCategoryDisplayName(category) {
+  const categoryMap = {
+    'glossary/definition': 'Definitions & Glossary',
+    'problem/solution': 'Problems & Solutions',
+    'educational/how-to': 'Educational Guides',
+    'general': 'General Information',
+    'buyer': 'For Buyers',
+    'accountant': 'For Accountants',
+    'developer': 'For Developers',
+    'lawyer': 'For Legal Professionals',
+    'property-owner': 'For Property Owners'
+  }
+  
+  return categoryMap[category] || category.replace(/\//g, ' & ').replace(/-/g, ' ')
+}
+
+// Get audience display name
+export function getAudienceDisplayName(audience) {
+  const audienceMap = {
+    'GENERAL': 'General Audience',
+    'FOREIGN_PROPERTY_BUYERS': 'Foreign Property Buyers',
+    'BUYER': 'Property Buyers',
+    'ACCOUNTANT': 'Accountants',
+    'DEVELOPER': 'Property Developers',
+    'LAWYER': 'Legal Professionals',
+    'EXISTING_PROPERTY_OWNER': 'Existing Property Owners'
+  }
+  
+  return audienceMap[audience] || audience.replace(/_/g, ' ')
+}
