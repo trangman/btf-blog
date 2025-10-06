@@ -1,8 +1,8 @@
-import { getPostsByCategory, getAllCategories, getCategoryDisplayName } from '../../lib/content'
+import { getPostsByCategory, getAllCategories, getCategoryDisplayName } from '../../../lib/content'
 import Link from 'next/link'
-import Navigation from '../../components/Navigation'
-import Footer from '../../components/Footer'
-import CTAButtons from '../../components/CTAButtons'
+import Navigation from '../../../components/Navigation'
+import Footer from '../../../components/Footer'
+import CTAButtons from '../../../components/CTAButtons'
 
 export async function generateStaticParams() {
   const categories = await getAllCategories()

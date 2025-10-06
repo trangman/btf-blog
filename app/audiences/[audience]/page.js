@@ -1,8 +1,8 @@
-import { getPostsByAudience, getAllAudiences, getAudienceDisplayName } from '../../lib/content'
+import { getPostsByAudience, getAllAudiences, getAudienceDisplayName } from '../../../lib/content'
 import Link from 'next/link'
-import Navigation from '../../components/Navigation'
-import Footer from '../../components/Footer'
-import CTAButtons from '../../components/CTAButtons'
+import Navigation from '../../../components/Navigation'
+import Footer from '../../../components/Footer'
+import CTAButtons from '../../../components/CTAButtons'
 
 export async function generateStaticParams() {
   const audiences = await getAllAudiences()

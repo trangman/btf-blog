@@ -1,7 +1,7 @@
-import { getAllCategories, getCategoryDisplayName } from '../../lib/content'
+import { getAllCategories, getCategoryDisplayName } from '../lib/content'
 import Link from 'next/link'
-import Navigation from '../../components/Navigation'
-import Footer from '../../components/Footer'
+import Navigation from '../components/Navigation'
+import Footer from '../components/Footer'
 
 export async function generateMetadata() {
   return {
