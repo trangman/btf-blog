@@ -1,4 +1,4 @@
-import { getPostsByCategory, getAllCategories, getCategoryDisplayName } from '../../lib/content'
+import { getPostsByCategory, getAllCategories, getCategoryDisplayName, getAudienceDisplayName } from '../../lib/content'
 import Link from 'next/link'
 import Navigation from '../../components/Navigation'
 import Footer from '../../components/Footer'
@@ -118,12 +118,21 @@ export default async function CategoryPage({ params }) {
                     </div>
                   )}
                   <div className="p-6">
-                    <div className="text-sm text-gray-500 mb-2">
-                      {new Date(post.pubDate).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                      })}
+                    <div className="flex items-center gap-4 text-sm text-gray-500 mb-2">
+                      <span>
+                        {new Date(post.pubDate).toLocaleDateString('en-US', {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric'
+                        })}
+                      </span>
+                      <span className="text-gray-300">•</span>
+                      <Link 
+                        href={`/audiences/${post.audience.toLowerCase().replace(/_/g, '-')}`}
+                        className="text-btf-accent hover:text-btf-dark transition-colors font-medium"
+                      >
+                        {getAudienceDisplayName(post.audience)}
+                      </Link>
                     </div>
                     <h2 className="text-xl font-semibold text-btf-dark mb-3 line-clamp-2">
                       {post.title}

@@ -1,4 +1,4 @@
-import { getPostBySlug, getAllPosts } from '../../lib/content'
+import { getPostBySlug, getAllPosts, getAudienceDisplayName } from '../../lib/content'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -276,12 +276,21 @@ export default async function ArticlePage({ params }) {
         <div className="bg-white shadow-sm">
           <div className="max-w-2xl lg:max-w-4xl xl:max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div className="text-center">
-              <div className="text-sm text-gray-500 mb-4">
-                {new Date(post.pubDate).toLocaleDateString('en-US', {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric'
-                })}
+              <div className="flex items-center justify-center gap-4 text-sm text-gray-500 mb-4">
+                <span>
+                  {new Date(post.pubDate).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                  })}
+                </span>
+                <span className="text-gray-300">•</span>
+                <Link 
+                  href={`/audiences/${post.audience.toLowerCase().replace(/_/g, '-')}`}
+                  className="text-btf-accent hover:text-btf-dark transition-colors font-medium"
+                >
+                  {getAudienceDisplayName(post.audience)}
+                </Link>
               </div>
               <h1 className="text-2xl lg:text-3xl xl:text-4xl font-bold text-btf-dark mb-6">
                 {post.title}
