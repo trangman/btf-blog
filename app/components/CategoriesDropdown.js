@@ -3,9 +3,15 @@ import { useState, useEffect } from 'react'
 
 // Category mapping for display names
 const categoryDisplayNames = {
-  'glossary/definition': 'Definitions & Glossary',
-  'problem/solution': 'Problems & Solutions',
-  'educational/how-to': 'Educational Guides',
+  'glossary/definition': 'Glossary/Definition',
+  'educational/how-to': 'Educational/How-To',
+  'problem/solution': 'Problem/Solution',
+  'market-analysis': 'Market Analysis',
+  'legal-education': 'Legal Education',
+  'technical': 'Technical',
+  'industry-analysis': 'Industry Analysis',
+  'professional-guidance': 'Professional Guidance',
+  // Legacy categories for backward compatibility
   'general': 'General Information',
   'buyer': 'For Buyers',
   'accountant': 'For Accountants',
@@ -19,17 +25,20 @@ export default function CategoriesDropdown({ isOpen, onClose }) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Fetch categories from the API route we'll create
-    fetch('/api/categories')
-      .then(res => res.json())
-      .then(data => {
-        setCategories(data.categories || [])
-        setLoading(false)
-      })
-      .catch(err => {
-        console.error('Error fetching categories:', err)
-        setLoading(false)
-      })
+    // Use predefined categories instead of fetching from API
+    const predefinedCategories = [
+      'glossary/definition',
+      'educational/how-to', 
+      'problem/solution',
+      'market-analysis',
+      'legal-education',
+      'technical',
+      'industry-analysis',
+      'professional-guidance'
+    ]
+    
+    setCategories(predefinedCategories)
+    setLoading(false)
   }, [])
 
   const getCategoryDisplayName = (category) => {

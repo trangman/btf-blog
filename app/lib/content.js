@@ -68,6 +68,7 @@ export async function getAllPosts(userRole = null) {
               heroImage: data.heroImage,
               categories: data.categories ? data.categories.split(',').map(c => c.trim()) : [],
               audience: data.audience && data.audience !== 'undefined' ? data.audience : 'GENERAL',
+              featured: data.featured === true || data.featured === 'true',
               content: content,
             }
           } catch (error) {
@@ -115,6 +116,7 @@ export async function getPostBySlug(slug, userRole = null) {
       heroImage: data.heroImage,
       categories: data.categories ? data.categories.split(',').map(c => c.trim()) : [],
       audience: data.audience && data.audience !== 'undefined' ? data.audience : 'GENERAL',
+      featured: data.featured === true || data.featured === 'true',
       content,
     }
     
@@ -133,15 +135,30 @@ export async function getPostBySlug(slug, userRole = null) {
 // Get all unique categories from posts
 export async function getAllCategories() {
   const posts = await getAllPosts()
-  const categories = new Set()
+  const categoriesFromPosts = new Set()
   
   posts.forEach(post => {
     post.categories.forEach(category => {
-      categories.add(category)
+      categoriesFromPosts.add(category)
     })
   })
   
-  return Array.from(categories).sort()
+  // Define all predefined categories
+  const predefinedCategories = [
+    'glossary/definition',
+    'educational/how-to', 
+    'problem/solution',
+    'market-analysis',
+    'legal-education',
+    'technical',
+    'industry-analysis',
+    'professional-guidance'
+  ]
+  
+  // Combine predefined categories with any additional categories found in posts
+  const allCategories = new Set([...predefinedCategories, ...categoriesFromPosts])
+  
+  return Array.from(allCategories).sort()
 }
 
 // Get all unique audiences from posts
@@ -168,12 +185,24 @@ export async function getPostsByAudience(audience, userRole = null) {
   return posts.filter(post => post.audience === audience)
 }
 
+// Get featured posts
+export async function getFeaturedPosts(userRole = null) {
+  const posts = await getAllPosts(userRole)
+  return posts.filter(post => post.featured === true)
+}
+
 // Get category display name
 export function getCategoryDisplayName(category) {
   const categoryMap = {
-    'glossary/definition': 'Definitions & Glossary',
-    'problem/solution': 'Problems & Solutions',
-    'educational/how-to': 'Educational Guides',
+    'glossary/definition': 'Glossary/Definition',
+    'educational/how-to': 'Educational/How-To',
+    'problem/solution': 'Problem/Solution',
+    'market-analysis': 'Market Analysis',
+    'legal-education': 'Legal Education',
+    'technical': 'Technical',
+    'industry-analysis': 'Industry Analysis',
+    'professional-guidance': 'Professional Guidance',
+    // Legacy categories for backward compatibility
     'general': 'General Information',
     'buyer': 'For Buyers',
     'accountant': 'For Accountants',

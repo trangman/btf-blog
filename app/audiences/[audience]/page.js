@@ -82,22 +82,22 @@ export default async function AudiencePage({ params }) {
   
   return (
     <>
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-btf-dark">
         {/* Navigation */}
         <Navigation />
         
         {/* Audience Header */}
-        <div className="bg-white shadow-sm">
+        <div className="bg-btf-dark shadow-sm">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div className="text-center">
-              <h1 className="text-3xl lg:text-4xl font-bold text-btf-dark mb-4">
+              <h1 className="text-3xl lg:text-4xl font-bold text-btf-teal mb-4">
                 Resources for {displayName}
               </h1>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              <p className="text-xl text-white max-w-3xl mx-auto">
                 Specialized Thailand property law resources and guides tailored for {displayName.toLowerCase()}. 
                 Learn about Better-than-Freehold solutions and legal compliance.
               </p>
-              <div className="mt-4 text-sm text-gray-500">
+              <div className="mt-4 text-sm text-gray-300">
                 {posts.length} resource{posts.length !== 1 ? 's' : ''} available
               </div>
             </div>
@@ -136,7 +136,7 @@ export default async function AudiencePage({ params }) {
                         {getAudienceDisplayName(post.audience)}
                       </Link>
                     </div>
-                    <h2 className="text-xl font-semibold text-btf-dark mb-3 line-clamp-2">
+                    <h2 className="text-xl font-semibold text-btf-teal mb-3 line-clamp-2">
                       {post.title}
                     </h2>
                     <p className="text-gray-600 mb-4 line-clamp-3">

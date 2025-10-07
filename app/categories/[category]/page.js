@@ -81,21 +81,21 @@ export default async function CategoryPage({ params }) {
   
   return (
     <>
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-btf-dark">
         {/* Navigation */}
         <Navigation />
         
         {/* Category Header */}
-        <div className="bg-white shadow-sm">
+        <div className="bg-btf-dark shadow-sm">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div className="text-center">
-              <h1 className="text-3xl lg:text-4xl font-bold text-btf-dark mb-4">
+              <h1 className="text-3xl lg:text-4xl font-bold text-btf-teal mb-4">
                 {displayName}
               </h1>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              <p className="text-xl text-white max-w-3xl mx-auto">
                 Comprehensive articles about Thailand property law, foreign ownership, and Better-than-Freehold solutions.
               </p>
-              <div className="mt-4 text-sm text-gray-500">
+              <div className="mt-4 text-sm text-gray-300">
                 {posts.length} article{posts.length !== 1 ? 's' : ''} in this category
               </div>
             </div>
@@ -134,7 +134,7 @@ export default async function CategoryPage({ params }) {
                         {getAudienceDisplayName(post.audience)}
                       </Link>
                     </div>
-                    <h2 className="text-xl font-semibold text-btf-dark mb-3 line-clamp-2">
+                    <h2 className="text-xl font-semibold text-btf-teal mb-3 line-clamp-2">
                       {post.title}
                     </h2>
                     <p className="text-gray-600 mb-4 line-clamp-3">

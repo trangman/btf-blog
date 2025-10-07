@@ -25,18 +25,18 @@ export default async function CategoriesIndexPage() {
   
   return (
     <>
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-btf-dark">
         {/* Navigation */}
         <Navigation />
         
         {/* Header */}
-        <div className="bg-white shadow-sm">
+        <div className="bg-btf-dark shadow-sm">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div className="text-center">
-              <h1 className="text-3xl lg:text-4xl font-bold text-btf-dark mb-4">
+              <h1 className="text-3xl lg:text-4xl font-bold text-btf-teal mb-4">
                 Article Categories
               </h1>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              <p className="text-xl text-white max-w-3xl mx-auto">
                 Browse our Thailand property law articles organized by category. 
                 Find definitions, solutions, and educational guides tailored to your needs.
               </p>
@@ -57,15 +57,20 @@ export default async function CategoriesIndexPage() {
                   href={`/categories/${categorySlug}`}
                   className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow group"
                 >
-                  <h2 className="text-xl font-semibold text-btf-dark mb-3 group-hover:text-btf-accent transition-colors">
+                  <h2 className="text-xl font-semibold text-btf-teal mb-3 group-hover:text-btf-accent transition-colors">
                     {displayName}
                   </h2>
                   <p className="text-gray-600 mb-4">
                     {category === 'glossary/definition' && 'Clear definitions and explanations of key terms and concepts in Thailand property law.'}
-                    {category === 'problem/solution' && 'Analysis of common problems and their compliant solutions using Better-than-Freehold structures.'}
                     {category === 'educational/how-to' && 'Step-by-step guides and educational content for foreign property investment in Thailand.'}
+                    {category === 'problem/solution' && 'Analysis of common problems and their compliant solutions using Better-than-Freehold structures.'}
+                    {category === 'market-analysis' && 'Market research and investment analysis for Thailand property market.'}
+                    {category === 'legal-education' && 'Legal compliance and regulatory content for property ownership.'}
+                    {category === 'technical' && 'Advanced technical explanations of property structures and legal frameworks.'}
+                    {category === 'industry-analysis' && 'Sector-specific analysis of Thailand property market trends.'}
+                    {category === 'professional-guidance' && 'Guidance for professional service providers in property transactions.'}
                     {category === 'general' && 'General information and overviews about Thailand property law and foreign ownership.'}
-                    {!['glossary/definition', 'problem/solution', 'educational/how-to', 'general'].includes(category) && 
+                    {!['glossary/definition', 'educational/how-to', 'problem/solution', 'market-analysis', 'legal-education', 'technical', 'industry-analysis', 'professional-guidance', 'general'].includes(category) && 
                       `Articles and resources related to ${displayName.toLowerCase()}.`}
                   </p>
                   <div className="flex items-center text-btf-accent group-hover:text-btf-dark font-medium transition-colors">

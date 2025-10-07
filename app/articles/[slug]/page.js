@@ -268,15 +268,15 @@ export default async function ArticlePage({ params }) {
           slug={slug}
         />
         
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen bg-btf-dark">
         {/* Navigation */}
         <Navigation />
         
         {/* Article Header */}
-        <div className="bg-white shadow-sm">
+        <div className="bg-btf-dark shadow-sm">
           <div className="max-w-2xl lg:max-w-4xl xl:max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div className="text-center">
-              <div className="flex items-center justify-center gap-4 text-sm text-gray-500 mb-4">
+              <div className="flex items-center justify-center gap-4 text-sm text-gray-300 mb-4">
                 <span>
                   {new Date(post.pubDate).toLocaleDateString('en-US', {
                     year: 'numeric',
@@ -292,10 +292,10 @@ export default async function ArticlePage({ params }) {
                   {getAudienceDisplayName(post.audience)}
                 </Link>
               </div>
-              <h1 className="text-2xl lg:text-3xl xl:text-4xl font-bold text-btf-dark mb-6">
+              <h1 className="text-2xl lg:text-3xl xl:text-4xl font-bold text-btf-teal mb-6">
                 {post.title}
               </h1>
-              <p className="text-xl lg:text-2xl text-gray-600 max-w-4xl mx-auto">
+              <p className="text-xl lg:text-2xl text-white max-w-4xl mx-auto">
                 {post.description}
               </p>
             </div>

@@ -26,6 +26,7 @@ module.exports = {
         'btf-dark': '#0a2239',
         'btf-light': '#e0f7fa',
         'btf-accent': '#199383',
+        'btf-teal': '#20b2aa', // Teal color to match the image
       },
     },
   },
