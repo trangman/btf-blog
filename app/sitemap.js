@@ -20,13 +20,12 @@ export default async function sitemap() {
     '/contact/',
     '/privacy/',
     '/terms/',
-    '/articles/',
   ]
   
   // Dynamic routes - Articles
   const posts = await getAllPosts()
   const articleRoutes = posts.map((post) => ({
-    url: `${baseUrl}/articles/${post.slug}/`,
+    url: `${baseUrl}/resources/${post.slug}/`,
     lastModified: post.pubDate,
     changeFrequency: 'monthly',
     priority: 0.8,

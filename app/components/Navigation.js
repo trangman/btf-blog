@@ -64,7 +64,7 @@ export default function Navigation() {
                   onClick={toggleCategoriesDropdown}
                   className="text-btf-dark hover:text-btf-accent px-3 py-2 rounded-md text-sm font-medium transition-colors flex items-center"
                 >
-                  Articles
+                  Resources
                   <svg className={`ml-1 h-4 w-4 transition-transform ${isCategoriesDropdownOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
@@ -166,8 +166,8 @@ export default function Navigation() {
           <a href="/about" className="text-btf-dark hover:text-btf-accent block px-3 py-2 rounded-md text-base font-medium">
             About
           </a>
-          <a href="/articles" className="text-btf-dark hover:text-btf-accent block px-3 py-2 rounded-md text-base font-medium">
-            Articles
+          <a href="/resources" className="text-btf-dark hover:text-btf-accent block px-3 py-2 rounded-md text-base font-medium">
+            Resources
           </a>
           <a href="/categories" className="text-btf-dark hover:text-btf-accent block px-3 py-2 rounded-md text-base font-medium ml-4">
             Categories

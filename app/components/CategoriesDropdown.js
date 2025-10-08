@@ -55,11 +55,11 @@ export default function CategoriesDropdown({ isOpen, onClose }) {
     <div className="absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50">
       <div className="py-1">
         <a
-          href="/articles"
+          href="/resources"
           className="block px-4 py-2 text-sm text-btf-accent hover:bg-btf-accent/10 font-medium transition-colors"
           onClick={onClose}
         >
-          All Articles
+          All Resources
         </a>
         <div className="border-t border-gray-100 my-1"></div>
         {loading ? (

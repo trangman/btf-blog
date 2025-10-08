@@ -1,214 +1,181 @@
+import { getAllPosts, getAudienceDisplayName, getFeaturedPosts } from '../lib/content'
+import Link from 'next/link'
 import Navigation from '../components/Navigation'
 import Footer from '../components/Footer'
 import CTAButtons from '../components/CTAButtons'
-import Script from 'next/script'
-import { getCanonicalUrl } from '../lib/utils'
 
-export const metadata = {
-  title: 'Resources & Insights | Better-than-Freehold™',
-  description:
-    'Articles, guides, and market insights on secure, legal Thai property ownership and the Better-than-Freehold™ structure.',
-  alternates: { canonical: getCanonicalUrl('/resources') },
-  robots: { index: true, follow: true },
-  openGraph: {
-    url: getCanonicalUrl('/resources'),
-    title: 'Resources & Insights | Better-than-Freehold™',
-    description: 'Guides and insights on Thai property investing and BtF.',
-    images: [{ url: getCanonicalUrl('/og/default.jpg'), width: 1200, height: 630, alt: 'Better-than-Freehold' }],
-  },
-  twitter: { images: [getCanonicalUrl('/og/default.jpg')] },
-}
+export default async function ResourcesPage() {
+  const posts = await getAllPosts()
+  const featuredPosts = await getFeaturedPosts()
 
-export default function Resources() {
   return (
-    <div className="min-h-screen flex flex-col bg-btf-dark">
+    <div className="min-h-screen bg-btf-dark">
+      {/* Navigation */}
       <Navigation />
-      <main className="flex-1">
-        <Script
-          id="resources-breadcrumbs"
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'BreadcrumbList',
-              itemListElement: [
-                {
-                  '@type': 'ListItem',
-                  position: 1,
-                  name: 'Home',
-                  item: getCanonicalUrl('/'),
-                },
-                {
-                  '@type': 'ListItem',
-                  position: 2,
-                  name: 'Resources',
-                  item: getCanonicalUrl('/resources'),
-                },
-              ],
-            }),
-          }}
-        />
-        <Script
-          id="resources-webpage"
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'WebPage',
-              name: 'Resources & Insights',
-              url: getCanonicalUrl('/resources'),
-              description: 'Articles, guides, and insights about Thai property investment and the Better-than-Freehold™ structure.',
-            }),
-          }}
-        />
-        {/* Hero Section */}
-        <section className="py-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 className="text-4xl md:text-6xl font-bold text-btf-light mb-6">
+      
+      {/* Header */}
+      <div className="bg-btf-dark shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="text-center">
+            <h1 className="text-4xl font-bold text-btf-teal mb-4">
               Resources & Insights
             </h1>
-            <p className="text-xl text-btf-light/80 mb-8 max-w-3xl mx-auto">
-              Stay informed about property investment in Thailand with our latest articles, guides, and market insights.
+            <p className="text-xl text-white max-w-3xl mx-auto">
+              Stay informed with the latest insights on property ownership solutions, 
+              legal updates, and market trends in Thailand.
             </p>
           </div>
-        </section>
+        </div>
+      </div>
 
-        {/* Featured Articles Section */}
-        <section className="py-20 bg-btf-dark/50">
+      {/* Featured Articles */}
+      {featuredPosts.length > 0 && (
+        <div className="bg-white py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-btf-accent mb-12">Featured Articles</h2>
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold text-btf-teal mb-4">
+                Featured Resources
+              </h2>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                Our most important and comprehensive guides to Thailand property law and Better-than-Freehold solutions.
+              </p>
+            </div>
             
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {/* Article 1 */}
-              <div className="bg-btf-dark/30 rounded-xl overflow-hidden">
-                <div className="aspect-w-16 aspect-h-9 bg-btf-accent/10"></div>
-                <div className="p-6">
-                  <div className="flex items-center text-sm text-btf-light/60 mb-4">
-                    <span>Market Analysis</span>
-                    <span className="mx-2">•</span>
-                    <span>5 min read</span>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {featuredPosts.map((post) => (
+                <article key={post.slug} className="bg-gray-50 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow border-2 border-btf-teal">
+                  {post.heroImage && (
+                    <div className="aspect-w-16 aspect-h-9">
+                      <img
+                        src={post.heroImage}
+                        alt={post.title}
+                        className="w-full h-48 object-cover"
+                      />
+                    </div>
+                  )}
+                  <div className="p-6">
+                    <div className="flex items-center gap-4 text-sm text-gray-500 mb-2">
+                      <span className="bg-btf-teal text-white px-2 py-1 rounded text-xs font-semibold">
+                        FEATURED
+                      </span>
+                      <span>
+                        {new Date(post.pubDate).toLocaleDateString('en-US', {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric'
+                        })}
+                      </span>
+                      <span className="text-gray-300">•</span>
+                      <Link 
+                        href={`/audiences/${post.audience.toLowerCase().replace(/_/g, '-')}`}
+                        className="text-btf-accent hover:text-btf-dark transition-colors font-medium"
+                      >
+                        {getAudienceDisplayName(post.audience)}
+                      </Link>
+                    </div>
+                    <h3 className="text-xl font-semibold text-btf-teal mb-3 line-clamp-2">
+                      {post.title}
+                    </h3>
+                    <p className="text-gray-600 mb-4 line-clamp-3">
+                      {post.description}
+                    </p>
+                    <Link
+                      href={`/resources/${post.slug}`}
+                      className="inline-flex items-center text-btf-accent hover:text-btf-dark font-medium transition-colors"
+                    >
+                      Read More
+                      <svg className="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </Link>
                   </div>
-                  <h3 className="text-xl font-semibold text-btf-light mb-3">
-                    Thailand Property Market Outlook 2025
-                  </h3>
-                  <p className="text-btf-light/80 mb-4">
-                    An in-depth analysis of Thailand's property market trends and opportunities for foreign investors.
-                  </p>
-                  <a href="#" className="text-btf-accent hover:text-btf-light">Read More →</a>
-                </div>
-              </div>
-
-              {/* Article 2 */}
-              <div className="bg-btf-dark/30 rounded-xl overflow-hidden">
-                <div className="aspect-w-16 aspect-h-9 bg-btf-accent/10"></div>
-                <div className="p-6">
-                  <div className="flex items-center text-sm text-btf-light/60 mb-4">
-                    <span>Legal Guide</span>
-                    <span className="mx-2">•</span>
-                    <span>8 min read</span>
-                  </div>
-                  <h3 className="text-xl font-semibold text-btf-light mb-3">
-                    Understanding Thai Property Law
-                  </h3>
-                  <p className="text-btf-light/80 mb-4">
-                    A comprehensive guide to property ownership laws and regulations in Thailand.
-                  </p>
-                  <a href="#" className="text-btf-accent hover:text-btf-light">Read More →</a>
-                </div>
-              </div>
-
-              {/* Article 3 */}
-              <div className="bg-btf-dark/30 rounded-xl overflow-hidden">
-                <div className="aspect-w-16 aspect-h-9 bg-btf-accent/10"></div>
-                <div className="p-6">
-                  <div className="flex items-center text-sm text-btf-light/60 mb-4">
-                    <span>Investment Strategy</span>
-                    <span className="mx-2">•</span>
-                    <span>6 min read</span>
-                  </div>
-                  <h3 className="text-xl font-semibold text-btf-light mb-3">
-                    Maximising ROI with Better-than-Freehold™
-                  </h3>
-                  <p className="text-btf-light/80 mb-4">
-                    Learn how our structure helps investors maximise returns while minimising risks.
-                  </p>
-                  <a href="#" className="text-btf-accent hover:text-btf-light">Read More →</a>
-                </div>
-              </div>
+                </article>
+              ))}
             </div>
           </div>
-        </section>
+        </div>
+      )}
 
-        {/* Resources Section */}
-        <section className="py-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-btf-accent mb-12">Investment Resources</h2>
-            
-            <div className="grid md:grid-cols-2 gap-8">
-              {/* Guides */}
-              <div className="space-y-6">
-                <h3 className="text-2xl font-semibold text-btf-light mb-6">Investment Guides</h3>
-                
-                <div className="bg-btf-dark/30 p-6 rounded-xl">
-                  <h4 className="text-xl font-semibold text-btf-light mb-3">
-                    Beginner's Guide to Thai Property
-                  </h4>
-                  <p className="text-btf-light/80 mb-4">
-                    Everything you need to know about starting your property investment journey in Thailand.
+      {/* Articles Grid */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {posts.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {posts.map((post) => (
+              <article key={post.slug} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+                {post.heroImage && (
+                  <div className="aspect-w-16 aspect-h-9">
+                    <img
+                      src={post.heroImage}
+                      alt={post.title}
+                      className="w-full h-48 object-cover"
+                    />
+                  </div>
+                )}
+                <div className="p-6">
+                  <div className="flex items-center gap-4 text-sm text-gray-500 mb-2">
+                    <span>
+                      {new Date(post.pubDate).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                      })}
+                    </span>
+                    <span className="text-gray-300">•</span>
+                    <Link 
+                      href={`/audiences/${post.audience.toLowerCase().replace(/_/g, '-')}`}
+                      className="text-btf-accent hover:text-btf-dark transition-colors font-medium"
+                    >
+                      {getAudienceDisplayName(post.audience)}
+                    </Link>
+                  </div>
+                  <h2 className="text-xl font-semibold text-btf-teal mb-3 line-clamp-2">
+                    {post.title}
+                  </h2>
+                  <p className="text-gray-600 mb-4 line-clamp-3">
+                    {post.description}
                   </p>
-                  <a href="#" className="text-btf-accent hover:text-btf-light">Download PDF →</a>
+                  <Link
+                    href={`/resources/${post.slug}`}
+                    className="inline-flex items-center text-btf-accent hover:text-btf-dark font-medium transition-colors"
+                  >
+                    Read More
+                    <svg className="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </Link>
                 </div>
-
-                <div className="bg-btf-dark/30 p-6 rounded-xl">
-                  <h4 className="text-xl font-semibold text-btf-light mb-3">
-                    Due Diligence Checklist
-                  </h4>
-                  <p className="text-btf-light/80 mb-4">
-                    A comprehensive checklist for evaluating property investments in Thailand.
-                  </p>
-                  <a href="#" className="text-btf-accent hover:text-btf-light">Download PDF →</a>
-                </div>
-              </div>
-
-              {/* Market Reports */}
-              <div className="space-y-6">
-                <h3 className="text-2xl font-semibold text-btf-light mb-6">Market Reports</h3>
-                
-                <div className="bg-btf-dark/30 p-6 rounded-xl">
-                  <h4 className="text-xl font-semibold text-btf-light mb-3">
-                    Q1 2025 Market Analysis
-                  </h4>
-                  <p className="text-btf-light/80 mb-4">
-                    Detailed analysis of property market trends and forecasts for 2025.
-                  </p>
-                  <a href="#" className="text-btf-accent hover:text-btf-light">Download Report →</a>
-                </div>
-
-                <div className="bg-btf-dark/30 p-6 rounded-xl">
-                  <h4 className="text-xl font-semibold text-btf-light mb-3">
-                    Regional Investment Opportunities
-                  </h4>
-                  <p className="text-btf-light/80 mb-4">
-                    Analysis of investment opportunities across different regions in Thailand.
-                  </p>
-                  <a href="#" className="text-btf-accent hover:text-btf-light">Download Report →</a>
-                </div>
-              </div>
-            </div>
+              </article>
+            ))}
           </div>
-        </section>
-
-        {/* Contact CTA Section */}
-        <section className="py-20 bg-btf-accent">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-3xl font-bold text-btf-dark mb-4">Have Questions?</h2>
-            <p className="text-xl text-btf-dark/80 mb-8 max-w-3xl mx-auto">
-              Get in touch to discuss your goals or ask about our latest resources and insights.
+        ) : (
+          <div className="text-center py-12">
+            <div className="text-gray-400 mb-4">
+              <svg className="mx-auto h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+            </div>
+            <h3 className="text-lg font-medium text-gray-900 mb-2">No resources yet</h3>
+            <p className="text-gray-500">
+              Check back soon for insightful resources about property ownership in Thailand.
             </p>
-            <CTAButtons variant="accent-bg" />
           </div>
-        </section>
-      </main>
+        )}
+      </div>
+
+      {/* CTA Section */}
+      <div className="bg-btf-accent py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl font-bold mb-4 text-btf-dark">
+            Ready to revolutionise your property investment journey?
+          </h2>
+          <p className="text-xl mb-8 max-w-2xl mx-auto text-btf-dark">
+            Have questions? Contact us today to discover how Better-than-Freehold™ can work for you.
+          </p>
+          <CTAButtons />
+        </div>
+      </div>
+      
+      {/* Footer */}
       <Footer />
     </div>
   )

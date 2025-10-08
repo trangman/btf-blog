@@ -74,7 +74,7 @@ export default async function CategoriesIndexPage() {
                       `Articles and resources related to ${displayName.toLowerCase()}.`}
                   </p>
                   <div className="flex items-center text-btf-accent group-hover:text-btf-dark font-medium transition-colors">
-                    View Articles
+                    View Resources
                     <svg className="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
@@ -99,8 +99,8 @@ export default async function CategoriesIndexPage() {
                   <svg className="flex-shrink-0 h-5 w-5 text-gray-300" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
                   </svg>
-                  <Link href="/articles" className="ml-4 text-gray-400 hover:text-gray-500">
-                    Articles
+                  <Link href="/resources" className="ml-4 text-gray-400 hover:text-gray-500">
+                    Resources
                   </Link>
                 </div>
               </li>

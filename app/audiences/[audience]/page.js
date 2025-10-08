@@ -143,7 +143,7 @@ export default async function AudiencePage({ params }) {
                       {post.description}
                     </p>
                     <Link
-                      href={`/articles/${post.slug}`}
+                      href={`/resources/${post.slug}`}
                       className="inline-flex items-center text-btf-accent hover:text-btf-dark font-medium transition-colors"
                     >
                       Read More
@@ -160,10 +160,10 @@ export default async function AudiencePage({ params }) {
               <h2 className="text-2xl font-semibold text-gray-900 mb-4">No resources found</h2>
               <p className="text-gray-600 mb-8">There are currently no resources available for this audience.</p>
               <Link
-                href="/articles"
+                href="/resources"
                 className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-btf-accent hover:bg-btf-dark transition-colors"
               >
-                View All Articles
+                View All Resources
               </Link>
             </div>
           )}

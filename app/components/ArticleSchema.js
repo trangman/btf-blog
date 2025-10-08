@@ -11,7 +11,7 @@ export default function ArticleSchema({
   siteUrl = "https://btf-blog.vercel.app",
   faqs = []
 }) {
-  const articleUrl = `${siteUrl}/articles/${slug}`
+  const articleUrl = `${siteUrl}/resources/${slug}`
   const imageUrl = heroImage ? (heroImage.startsWith('http') ? heroImage : `${siteUrl}${heroImage}`) : `${siteUrl}/btf-logo.svg`
   
   // Article Schema
