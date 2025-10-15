@@ -93,28 +93,28 @@ const mdxComponents = {
       )
     }
     return (
-      <p className="text-gray-800 mb-4 leading-relaxed text-base lg:text-lg xl:text-xl" {...props}>
+      <p className="text-gray-800 mb-4 leading-relaxed text-base" {...props}>
         {children}
       </p>
     )
   },
   ul: ({ children, ...props }) => (
-    <ul className="mb-4 text-gray-800" style={{listStyleType: 'disc', paddingLeft: '1.5rem', marginBottom: '1rem'}} {...props}>
+    <ul className="mb-4 text-gray-800 text-base" style={{listStyleType: 'disc', paddingLeft: '1.5rem', marginBottom: '1rem'}} {...props}>
       {children}
     </ul>
   ),
   ol: ({ children, ...props }) => (
-    <ol className="mb-4 text-gray-800" style={{listStyleType: 'decimal', paddingLeft: '1.5rem', marginBottom: '1rem'}} {...props}>
+    <ol className="mb-4 text-gray-800 text-base" style={{listStyleType: 'decimal', paddingLeft: '1.5rem', marginBottom: '1rem'}} {...props}>
       {children}
     </ol>
   ),
   li: ({ children, ...props }) => (
-    <li className="text-gray-800" style={{marginBottom: '0.25rem', display: 'list-item'}} {...props}>
+    <li className="text-gray-800 text-base" style={{marginBottom: '0.25rem', display: 'list-item'}} {...props}>
       {children}
     </li>
   ),
   blockquote: ({ children, ...props }) => (
-    <blockquote className="border-l-4 border-btf-teal pl-4 py-2 mb-4 bg-gray-100 italic text-gray-700" style={{borderLeft: '4px solid #20b2aa', paddingLeft: '1rem', paddingTop: '0.5rem', paddingBottom: '0.5rem', marginBottom: '1rem', backgroundColor: '#f3f4f6', fontStyle: 'italic'}} {...props}>
+    <blockquote className="border-l-4 border-btf-teal pl-4 py-2 mb-4 bg-gray-100 italic text-gray-700 text-base" style={{borderLeft: '4px solid #20b2aa', paddingLeft: '1rem', paddingTop: '0.5rem', paddingBottom: '0.5rem', marginBottom: '1rem', backgroundColor: '#f3f4f6', fontStyle: 'italic'}} {...props}>
       {children}
     </blockquote>
   ),
@@ -146,7 +146,7 @@ const mdxComponents = {
     </th>
   ),
   td: ({ children, ...props }) => (
-    <td className="border border-btf-teal/30 px-4 py-2 text-gray-800" style={{border: '1px solid rgba(32, 178, 170, 0.3)', padding: '8px 16px'}} {...props}>
+    <td className="border border-btf-teal/30 px-4 py-2 text-gray-800 text-base" style={{border: '1px solid rgba(32, 178, 170, 0.3)', padding: '8px 16px'}} {...props}>
       {children}
     </td>
   ),
