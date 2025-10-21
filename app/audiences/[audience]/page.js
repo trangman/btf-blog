@@ -21,7 +21,7 @@ export async function generateMetadata({ params }) {
   const posts = await getPostsByAudience(audienceSlug)
   
   const siteUrl = 'https://btf-blog.vercel.app'
-  const audienceUrl = `${siteUrl}/audiences/${audience}`
+  const audienceUrl = `${siteUrl}/audiences/${normalizedParam}`
   
   return {
     title: `${displayName} - Thailand Property Law Resources`,
@@ -78,7 +78,8 @@ export async function generateMetadata({ params }) {
 
 export default async function AudiencePage({ params }) {
   const { audience } = params
-  const audienceSlug = audience.replace(/-/g, '_').toUpperCase() // Convert hyphens back to underscores
+  const normalizedParam = decodeURIComponent(audience).toLowerCase().replace(/\s+/g, '-').replace(/_+/g, '-')
+  const audienceSlug = normalizedParam.replace(/-/g, '_').toUpperCase()
   const displayName = getAudienceDisplayName(audienceSlug)
   const posts = await getPostsByAudience(audienceSlug)
   
