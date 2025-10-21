@@ -120,6 +120,19 @@ export default async function ResourcesPage() {
                   <h3 className="text-xl font-semibold text-btf-teal mb-3 group-hover:text-btf-accent transition-colors">
                     {displayName}
                   </h3>
+                  <p className="text-gray-600 mb-4">
+                    {category === 'glossary/definition' && 'Clear definitions and explanations of key terms and concepts in Thailand property law.'}
+                    {category === 'educational/how-to' && 'Step-by-step guides and educational content for foreign property investment in Thailand.'}
+                    {category === 'problem/solution' && 'Analysis of common problems and their compliant solutions using Better-than-Freehold structures.'}
+                    {category === 'market-analysis' && 'Market research and investment analysis for Thailand property market.'}
+                    {category === 'legal-education' && 'Legal compliance and regulatory content for property ownership.'}
+                    {category === 'technical' && 'Advanced technical explanations of property structures and legal frameworks.'}
+                    {category === 'industry-analysis' && 'Sector-specific analysis of Thailand property market trends.'}
+                    {category === 'professional-guidance' && 'Guidance for professional service providers in property transactions.'}
+                    {category === 'general' && 'General information and overviews about Thailand property law and foreign ownership.'}
+                    {!['glossary/definition', 'educational/how-to', 'problem/solution', 'market-analysis', 'legal-education', 'technical', 'industry-analysis', 'professional-guidance', 'general'].includes(category) && 
+                      `Articles and resources related to ${displayName.toLowerCase()}.`}
+                  </p>
                   <div className="flex items-center text-btf-accent group-hover:text-btf-dark font-medium transition-colors">
                     View Articles
                     <svg className="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
