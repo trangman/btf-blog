@@ -14,7 +14,9 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }) {
   const { audience } = params
-  const audienceSlug = audience.replace(/-/g, '_').toUpperCase() // Convert hyphens back to underscores
+  // Normalize slug: lower-case, replace spaces with hyphens, then convert to enum-style underscore form
+  const normalizedParam = decodeURIComponent(audience).toLowerCase().replace(/\s+/g, '-').replace(/_+/g, '-')
+  const audienceSlug = normalizedParam.replace(/-/g, '_').toUpperCase()
   const displayName = getAudienceDisplayName(audienceSlug)
   const posts = await getPostsByAudience(audienceSlug)
   
@@ -183,8 +185,8 @@ export default async function AudiencePage({ params }) {
                   <svg className="flex-shrink-0 h-5 w-5 text-gray-300" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
                   </svg>
-                  <Link href="/articles" className="ml-4 text-gray-400 hover:text-gray-500">
-                    Articles
+                  <Link href="/resources" className="ml-4 text-gray-400 hover:text-gray-500">
+                    Resources
                   </Link>
                 </div>
               </li>
