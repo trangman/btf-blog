@@ -75,8 +75,8 @@ export default function ArticleSchema({
       {
         "@type": "ListItem",
         "position": 2,
-        "name": "Articles",
-        "item": `${siteUrl}/articles`
+        "name": "Resources",
+        "item": `${siteUrl}/resources`
       },
       {
         "@type": "ListItem",

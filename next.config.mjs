@@ -54,6 +54,21 @@ const nextConfig = {
       },
     ]
   },
+  // Redirect legacy routes
+  async redirects() {
+    return [
+      {
+        source: '/articles',
+        destination: '/resources',
+        permanent: true,
+      },
+      {
+        source: '/articles/:slug',
+        destination: '/resources/:slug',
+        permanent: true,
+      },
+    ]
+  },
   // Enable webpack optimizations
   webpack: (config, { dev, isServer }) => {
     if (!dev && !isServer) {

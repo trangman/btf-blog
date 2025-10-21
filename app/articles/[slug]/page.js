@@ -177,7 +177,7 @@ export async function generateMetadata({ params }) {
   }
   
   const siteUrl = 'https://btf-blog.vercel.app'
-  const articleUrl = `${siteUrl}/articles/${slug}`
+  const articleUrl = `${siteUrl}/resources/${slug}`
   const imageUrl = post.heroImage ? (post.heroImage.startsWith('http') ? post.heroImage : `${siteUrl}${post.heroImage}`) : `${siteUrl}/btf-logo.svg`
   
   return {
@@ -326,13 +326,13 @@ export default async function ArticlePage({ params }) {
         <div className="max-w-2xl lg:max-w-4xl xl:max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex justify-start">
             <Link
-              href="/articles"
+              href="/resources"
               className="inline-flex items-center text-btf-accent hover:text-btf-dark font-medium transition-colors"
             >
               <svg className="mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
-              Back to Articles
+              Back to Resources
             </Link>
           </div>
         </div>
