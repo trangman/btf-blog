@@ -45,7 +45,11 @@ export default async function ResourcesPage() {
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {featuredPosts.map((post) => (
-                <article key={post.slug} className="bg-gray-50 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow border-2 border-btf-teal">
+                <Link
+                  key={post.slug}
+                  href={`/resources/${post.slug}`}
+                  className="bg-gray-50 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow border-2 border-btf-teal group"
+                >
                   {post.heroImage && (
                     <div className="aspect-w-16 aspect-h-9">
                       <img
@@ -68,30 +72,24 @@ export default async function ResourcesPage() {
                         })}
                       </span>
                       <span className="text-gray-300">•</span>
-                      <Link 
-                        href={`/audiences/${post.audience.toLowerCase().replace(/_/g, '-')}`}
-                        className="text-btf-accent hover:text-btf-dark transition-colors font-medium"
-                      >
+                      <span className="text-btf-accent font-medium">
                         {getAudienceDisplayName(post.audience)}
-                      </Link>
+                      </span>
                     </div>
-                    <h3 className="text-xl font-semibold text-btf-teal mb-3 line-clamp-2">
+                    <h3 className="text-xl font-semibold text-btf-teal mb-3 line-clamp-2 group-hover:text-btf-accent transition-colors">
                       {post.title}
                     </h3>
                     <p className="text-gray-600 mb-4 line-clamp-3">
                       {post.description}
                     </p>
-                    <Link
-                      href={`/resources/${post.slug}`}
-                      className="inline-flex items-center text-btf-accent hover:text-btf-dark font-medium transition-colors"
-                    >
+                    <div className="flex items-center text-btf-accent group-hover:text-btf-dark font-medium transition-colors">
                       Read More
                       <svg className="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                       </svg>
-                    </Link>
+                    </div>
                   </div>
-                </article>
+                </Link>
               ))}
             </div>
           </div>
