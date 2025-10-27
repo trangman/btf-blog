@@ -10,6 +10,7 @@ import Navigation from '../../components/Navigation'
 import Footer from '../../components/Footer'
 import CTAButtons from '../../components/CTAButtons'
 import KeyTakeaways from '../../components/KeyTakeaways'
+import QuickAnswer from '../../components/QuickAnswer'
 
 // Generate slug from heading text
 const generateSlug = (text) => {
@@ -162,6 +163,12 @@ const mdxComponents = {
     <KeyTakeaways {...props}>
       {children}
     </KeyTakeaways>
+  ),
+  // Quick Answer component
+  QuickAnswer: ({ children, ...props }) => (
+    <QuickAnswer {...props}>
+      {children}
+    </QuickAnswer>
   ),
 }
 
