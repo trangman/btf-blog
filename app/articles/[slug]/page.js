@@ -45,7 +45,7 @@ const mdxComponents = {
     const text = children?.toString() || ''
     const id = generateSlug(text)
     return (
-      <h2 id={id} className="text-lg lg:text-xl xl:text-2xl font-semibold text-btf-dark mb-4 mt-6" {...props}>
+      <h2 id={id} className="text-lg lg:text-xl xl:text-2xl font-semibold text-gray-700 mb-4 mt-6" style={{color: '#374151'}} {...props}>
         {children}
       </h2>
     )
