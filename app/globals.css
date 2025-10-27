@@ -54,3 +54,39 @@
   margin-bottom: 0.5rem;
   border-radius: 4px;
 }
+
+/* Key Takeaways Section Styling */
+.key-takeaways-section {
+  margin-bottom: 2rem;
+}
+
+.key-takeaways-content ul {
+  list-style: none !important;
+  padding-left: 0 !important;
+  margin: 0 !important;
+}
+
+.key-takeaways-content li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+  color: #374151;
+  line-height: 1.6;
+  list-style: none !important;
+}
+
+.key-takeaways-content li strong {
+  font-weight: bold;
+  color: #374151; /* Standard dark gray color for bold text */
+}
+
+.key-takeaways-content li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.5rem;
+  width: 6px;
+  height: 6px;
+  background-color: #0a2239;
+  border-radius: 50%;
+}

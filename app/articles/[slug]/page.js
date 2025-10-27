@@ -9,6 +9,7 @@ import ArticleSchema from '../../components/ArticleSchema'
 import Navigation from '../../components/Navigation'
 import Footer from '../../components/Footer'
 import CTAButtons from '../../components/CTAButtons'
+import KeyTakeaways from '../../components/KeyTakeaways'
 
 // Generate slug from heading text
 const generateSlug = (text) => {
@@ -131,7 +132,7 @@ const mdxComponents = {
     </td>
   ),
   strong: ({ children, ...props }) => (
-    <strong className="font-semibold text-btf-dark" style={{fontWeight: '600', color: '#1f2937'}} {...props}>
+    <strong className="font-semibold text-gray-700" style={{fontWeight: '600', color: '#374151'}} {...props}>
       {children}
     </strong>
   ),
@@ -155,6 +156,12 @@ const mdxComponents = {
     <TOCLink href={href} className={className} {...props}>
       {children}
     </TOCLink>
+  ),
+  // Key Takeaways component
+  KeyTakeaways: ({ children, ...props }) => (
+    <KeyTakeaways {...props}>
+      {children}
+    </KeyTakeaways>
   ),
 }
 
@@ -272,52 +279,40 @@ export default async function ArticlePage({ params }) {
         {/* Navigation */}
         <Navigation />
         
-        {/* Article Header */}
-        <div className="bg-btf-dark shadow-sm">
+        {/* Main Article Container - One White Container on Dark Background */}
+        <div className="bg-btf-dark">
           <div className="max-w-2xl lg:max-w-4xl xl:max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div className="text-center">
-              <div className="flex items-center justify-center gap-4 text-sm text-gray-300 mb-4">
-                <span>
-                  {new Date(post.pubDate).toLocaleDateString('en-US', {
+            <div className="bg-white rounded-lg shadow-md p-6 lg:p-8 xl:p-12 text-gray-900">
+              {/* Header Section */}
+              <div className="text-left mb-8">
+                <h1 className="text-xl lg:text-2xl xl:text-3xl font-bold text-gray-900 mb-4" style={{lineHeight: '1.4'}}>
+                  {post.title}
+                </h1>
+                <p className="text-sm lg:text-base text-gray-700 italic mb-6 leading-relaxed">
+                  {post.description}
+                </p>
+                
+                {/* Horizontal separator */}
+                <hr className="border-gray-300 mb-4" />
+                
+                {/* Metadata */}
+                <div className="text-sm text-gray-600">
+                  <span>Category: {post.categories}</span>
+                  <span className="mx-2">|</span>
+                  <span>Reading Time: 6 minutes</span>
+                  <span className="mx-2">|</span>
+                  <span>Date: {new Date(post.pubDate).toLocaleDateString('en-US', {
                     year: 'numeric',
                     month: 'long',
                     day: 'numeric'
-                  })}
-                </span>
-                <span className="text-gray-300">•</span>
-                <Link 
-                  href={`/audiences/${post.audience.toLowerCase().replace(/_/g, '-')}`}
-                  className="text-btf-accent hover:text-btf-dark transition-colors font-medium"
-                >
-                  {getAudienceDisplayName(post.audience)}
-                </Link>
+                  })}</span>
+                </div>
               </div>
-              <h1 className="text-2xl lg:text-3xl xl:text-4xl font-bold text-btf-teal mb-6">
-                {post.title}
-              </h1>
-              <p className="text-xl lg:text-2xl text-white max-w-4xl mx-auto">
-                {post.description}
-              </p>
-            </div>
-          </div>
-        </div>
 
-        {/* Hero Image */}
-        {post.heroImage && (
-          <div className="max-w-2xl lg:max-w-4xl xl:max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <img
-              src={post.heroImage}
-              alt={post.title}
-              className="w-full h-64 md:h-96 lg:h-[28rem] xl:h-[32rem] object-cover rounded-lg shadow-md"
-            />
-          </div>
-        )}
-
-        {/* Article Content */}
-        <div className="max-w-2xl lg:max-w-4xl xl:max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="bg-white rounded-lg shadow-md p-6 lg:p-8 xl:p-12">
-            <div className="prose prose-lg lg:prose-xl xl:prose-2xl max-w-none">
-              <MDXRemote source={post.content} components={mdxComponents} options={mdxOptions} />
+              {/* Article Content */}
+              <div className="prose prose-lg lg:prose-xl xl:prose-2xl max-w-none">
+                <MDXRemote source={post.content} components={mdxComponents} options={mdxOptions} />
+              </div>
             </div>
           </div>
         </div>

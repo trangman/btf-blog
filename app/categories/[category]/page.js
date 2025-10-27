@@ -107,49 +107,45 @@ export default async function CategoryPage({ params }) {
           {posts.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {posts.map((post) => (
-                <article key={post.slug} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-                  {post.heroImage && (
-                    <div className="aspect-w-16 aspect-h-9">
-                      <img
-                        src={post.heroImage}
-                        alt={post.title}
-                        className="w-full h-48 object-cover"
-                      />
+                <article key={post.slug} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow group cursor-pointer">
+                  <Link href={`/resources/${post.slug}`} className="block">
+                    {post.heroImage && (
+                      <div className="aspect-w-16 aspect-h-9">
+                        <img
+                          src={post.heroImage}
+                          alt={post.title}
+                          className="w-full h-48 object-cover"
+                        />
+                      </div>
+                    )}
+                    <div className="p-6">
+                      <div className="flex items-center gap-4 text-sm text-gray-500 mb-2">
+                        <span>
+                          {new Date(post.pubDate).toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                          })}
+                        </span>
+                        <span className="text-gray-300">•</span>
+                        <span className="text-btf-accent font-medium">
+                          {getAudienceDisplayName(post.audience)}
+                        </span>
+                      </div>
+                      <h2 className="text-xl font-semibold text-btf-teal mb-3 line-clamp-2 group-hover:text-btf-dark transition-colors">
+                        {post.title}
+                      </h2>
+                      <p className="text-gray-600 mb-4 line-clamp-3">
+                        {post.description}
+                      </p>
+                      <div className="inline-flex items-center text-btf-accent group-hover:text-btf-dark font-medium transition-colors">
+                        Read More
+                        <svg className="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </div>
                     </div>
-                  )}
-                  <div className="p-6">
-                    <div className="flex items-center gap-4 text-sm text-gray-500 mb-2">
-                      <span>
-                        {new Date(post.pubDate).toLocaleDateString('en-US', {
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric'
-                        })}
-                      </span>
-                      <span className="text-gray-300">•</span>
-                      <Link 
-                        href={`/audiences/${post.audience.toLowerCase().replace(/_/g, '-')}`}
-                        className="text-btf-accent hover:text-btf-dark transition-colors font-medium"
-                      >
-                        {getAudienceDisplayName(post.audience)}
-                      </Link>
-                    </div>
-                    <h2 className="text-xl font-semibold text-btf-teal mb-3 line-clamp-2">
-                      {post.title}
-                    </h2>
-                    <p className="text-gray-600 mb-4 line-clamp-3">
-                      {post.description}
-                    </p>
-                    <Link
-                      href={`/resources/${post.slug}`}
-                      className="inline-flex items-center text-btf-accent hover:text-btf-dark font-medium transition-colors"
-                    >
-                      Read More
-                      <svg className="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </Link>
-                  </div>
+                  </Link>
                 </article>
               ))}
             </div>
