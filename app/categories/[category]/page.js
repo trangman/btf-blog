@@ -14,7 +14,17 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }) {
   const { category } = params
-  const categorySlug = category.replace(/-/g, '/') // Convert hyphens back to slashes
+  // Get all actual categories from posts
+  const allCategories = await getAllCategories()
+  
+  // Try the category as-is first (in case it uses hyphens like market-analysis)
+  // Then try converting hyphens to slashes (for categories like glossary/definition)
+  const categorySlug = allCategories.includes(category)
+    ? category
+    : allCategories.includes(category.replace(/-/g, '/'))
+      ? category.replace(/-/g, '/')
+      : category.replace(/-/g, '/') // Default fallback
+  
   const displayName = getCategoryDisplayName(categorySlug)
   const posts = await getPostsByCategory(categorySlug)
   
@@ -75,7 +85,17 @@ export async function generateMetadata({ params }) {
 
 export default async function CategoryPage({ params }) {
   const { category } = params
-  const categorySlug = category.replace(/-/g, '/') // Convert hyphens back to slashes
+  // Get all actual categories from posts
+  const allCategories = await getAllCategories()
+  
+  // Try the category as-is first (in case it uses hyphens like market-analysis)
+  // Then try converting hyphens to slashes (for categories like glossary/definition)
+  const categorySlug = allCategories.includes(category)
+    ? category
+    : allCategories.includes(category.replace(/-/g, '/'))
+      ? category.replace(/-/g, '/')
+      : category.replace(/-/g, '/') // Default fallback
+  
   const displayName = getCategoryDisplayName(categorySlug)
   const posts = await getPostsByCategory(categorySlug)
   
